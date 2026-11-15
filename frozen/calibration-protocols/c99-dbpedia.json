@@ -1,0 +1,68 @@
+{
+  "identity": {
+    "head": "44e5b0720f494dd3207d9977c91cff9320e18640",
+    "source_patch_sha256": "6876d9df871013b64869c6926d7db5b21b8fd319fe0a72ee5244618030ae696e",
+    "input_verification_sha256": "f7671cf68fa330b3e721ef53f381dd0202740d6c7f35b7e956b3e431e92e35c6",
+    "binary_sha256": "a57300c398bebcf7e0845f67a20da7c4139f289d22d36511b288961783a88ba6",
+    "library_sha256": "b779871886c61eff3b8a260fd06a3478ae85b04155d929358ad452693b9c4071",
+    "runner_sha256": "348a8ffdffcc34b35e8a1cf11d3e99fab61d5fa19f7be7615e9c13f889a9bbee",
+    "source_manifest_sha256": "09c2d7088512b84612e4e1a2af2f43327ee1feef8d886eb6ba479768386c3d16",
+    "reference_input_verification_sha256": "0070cc0ce5f9b53e62f38965007b4994ea57ba7541b15481e7a7b8102153eee4",
+    "index_reuse_sha256": "d88ff7de5354d7ff8d23129d3d144bd846aeb098c6f3fe158745f939f1209fb8",
+    "input_manifest_sha256": "62603d573b6a02fd8a06aabdcf5e6978f03efca776026b5d1574a51de4c7f4de"
+  },
+  "create_params": {
+    "dim": 1536,
+    "dtype": "float32",
+    "metric_type": "cosine",
+    "index_param": {
+      "base_quantization_type": "fp32",
+      "max_degree": 32,
+      "ef_construction": 500,
+      "use_reorder": false,
+      "build_thread_count": 12
+    }
+  },
+  "k": [
+    10,
+    100
+  ],
+  "recall_targets": [
+    0.8,
+    0.9,
+    0.95
+  ],
+  "coverage_target": 0.99,
+  "calibration_coverage_target": 0.995,
+  "calibration": "geometric bracketing, then integer bisection to adjacent ef; smallest passing measured ef",
+  "calibration_failure": "record no qualified budget within ef_limit, continue remaining points; no validation or timing for failed calibration",
+  "ef_limit": 8192,
+  "query_roles": {
+    "calibration": 1270,
+    "validation": 0
+  },
+  "validation": "Final development calibration only; reserved validation is not prepared or accessed",
+  "search_threads": [
+    1,
+    8
+  ],
+  "timing_repeats": 3,
+  "query_passes_per_repeat": 10,
+  "cpu_affinity": {
+    "build": "0-11",
+    "single": "8",
+    "eight": "8-15"
+  },
+  "build_environment_override": {
+    "OMP_PROC_BIND": "false",
+    "OMP_PLACES": "unset"
+  },
+  "quality": "VSAG distance-based recall, native angular recomputation, tolerance 2e-6",
+  "timing": "native eval steady_clock KnnSearch latency and search-pass wall QPS; all samples included; no discarded warmup",
+  "runtime_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_PROC_BIND": "close",
+    "OMP_PLACES": "cores",
+    "LD_LIBRARY_PATH": "$VSAG_ROOT/deps/system-prefix/usr/lib/x86_64-linux-gnu:$VSAG_ROOT/deps/system-prefix/usr/lib/x86_64-linux-gnu/openblas-pthread"
+  }
+}

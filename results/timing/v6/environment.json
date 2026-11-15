@@ -1,0 +1,150 @@
+{
+  "candidate": "v6",
+  "reference": "upstream",
+  "quality_lib": "v6",
+  "libraries": {
+    "v6": {
+      "library": {
+        "path": "$BENCH/runs/early-stop-recalibration-20261022/libraries/v6/libvsag.so.1.0.0",
+        "source": "$BENCH/runs/early-stop-v4-rebase-20261022/kth-restore/replay/library/libvsag.so.1.0.0",
+        "sha256": "03579555f1dc2bf0ca9653ca03d14c301129d4a29e20fc0ab6a0a5a8585f30b2"
+      },
+      "include": "$VSAG_ROOT/worktrees/hgraph-early-stop-v4/include",
+      "helpers": {
+        "multi_signature": {
+          "command": [
+            "nice",
+            "-n",
+            "19",
+            "c++",
+            "-O2",
+            "-std=c++17",
+            "-fopenmp",
+            "$BENCH/analysis/early-stop-v3-20261012/multi_signature.cpp",
+            "-I$VSAG_ROOT/worktrees/hgraph-early-stop-v4/include",
+            "-I$VSAG_ROOT/worktrees/hgraph-early-stop-v4/build-release-perf/hdf5/install/include",
+            "-L$BENCH/runs/early-stop-recalibration-20261022/libraries/v6",
+            "-lvsag",
+            "$VSAG_ROOT/worktrees/hgraph-early-stop-v4/build-release-perf/hdf5/install/lib/libhdf5_cpp.a",
+            "$VSAG_ROOT/worktrees/hgraph-early-stop-v4/build-release-perf/hdf5/install/lib/libhdf5.a",
+            "$VSAG_ROOT/deps/system-prefix/usr/lib/x86_64-linux-gnu/libz.a",
+            "-ldl",
+            "-o",
+            "$BENCH/runs/early-stop-recalibration-20261022/helpers/v6/multi_signature"
+          ],
+          "sha256": "4301cfb68fbcc1a99e96f4646162ae6c2e83e1ad85e47e1558083feaf6c49c02"
+        },
+        "timing": {
+          "command": [
+            "nice",
+            "-n",
+            "19",
+            "c++",
+            "-O2",
+            "-std=c++17",
+            "-fopenmp",
+            "$BENCH/runs/joint-budget-development-20261007/timing/source/timing.cpp",
+            "-I$VSAG_ROOT/worktrees/hgraph-early-stop-v4/include",
+            "-I$VSAG_ROOT/worktrees/hgraph-early-stop-v4/build-release-perf/hdf5/install/include",
+            "-L$BENCH/runs/early-stop-recalibration-20261022/libraries/v6",
+            "-lvsag",
+            "$VSAG_ROOT/worktrees/hgraph-early-stop-v4/build-release-perf/hdf5/install/lib/libhdf5_cpp.a",
+            "$VSAG_ROOT/worktrees/hgraph-early-stop-v4/build-release-perf/hdf5/install/lib/libhdf5.a",
+            "$VSAG_ROOT/deps/system-prefix/usr/lib/x86_64-linux-gnu/libz.a",
+            "-ldl",
+            "-o",
+            "$BENCH/runs/early-stop-recalibration-20261022/helpers/v6/timing"
+          ],
+          "sha256": "0b7c736f41477dd8da0a6104d05202c3a62e10d61dfb56bcb118f561e80bb494"
+        }
+      },
+      "added_at_utc": "2026-10-23T04:01:04.014848+00:00"
+    },
+    "upstream": {
+      "library": {
+        "path": "$BENCH/runs/early-stop-recalibration-20261022/libraries/upstream/libvsag.so.1.0.0",
+        "source": "$BENCH/runs/early-stop-v4-rebase-20261022/codegen/libraries/upstream-7ea909b3/libvsag.so.1.0.0",
+        "sha256": "b879b088220725c8f94dd70f420b2f09e4cf93e3e47061b44854b7d5a3ae1c22"
+      },
+      "include": "$VSAG_ROOT/worktrees/upstream-main-ref/include",
+      "helpers": {
+        "multi_signature": {
+          "command": [
+            "nice",
+            "-n",
+            "19",
+            "c++",
+            "-O2",
+            "-std=c++17",
+            "-fopenmp",
+            "$BENCH/analysis/early-stop-v3-20261012/multi_signature.cpp",
+            "-I$VSAG_ROOT/worktrees/upstream-main-ref/include",
+            "-I$VSAG_ROOT/worktrees/upstream-main-ref/build-release-perf/hdf5/install/include",
+            "-L$BENCH/runs/early-stop-recalibration-20261022/libraries/upstream",
+            "-lvsag",
+            "$VSAG_ROOT/worktrees/upstream-main-ref/build-release-perf/hdf5/install/lib/libhdf5_cpp.a",
+            "$VSAG_ROOT/worktrees/upstream-main-ref/build-release-perf/hdf5/install/lib/libhdf5.a",
+            "$VSAG_ROOT/deps/system-prefix/usr/lib/x86_64-linux-gnu/libz.a",
+            "-ldl",
+            "-o",
+            "$BENCH/runs/early-stop-recalibration-20261022/helpers/upstream/multi_signature"
+          ],
+          "sha256": "04457ad94a4760ba7266f302d138bf5cd50c2dec2f0d712871c90ada01f08a02"
+        },
+        "timing": {
+          "command": [
+            "nice",
+            "-n",
+            "19",
+            "c++",
+            "-O2",
+            "-std=c++17",
+            "-fopenmp",
+            "$BENCH/runs/joint-budget-development-20261007/timing/source/timing.cpp",
+            "-I$VSAG_ROOT/worktrees/upstream-main-ref/include",
+            "-I$VSAG_ROOT/worktrees/upstream-main-ref/build-release-perf/hdf5/install/include",
+            "-L$BENCH/runs/early-stop-recalibration-20261022/libraries/upstream",
+            "-lvsag",
+            "$VSAG_ROOT/worktrees/upstream-main-ref/build-release-perf/hdf5/install/lib/libhdf5_cpp.a",
+            "$VSAG_ROOT/worktrees/upstream-main-ref/build-release-perf/hdf5/install/lib/libhdf5.a",
+            "$VSAG_ROOT/deps/system-prefix/usr/lib/x86_64-linux-gnu/libz.a",
+            "-ldl",
+            "-o",
+            "$BENCH/runs/early-stop-recalibration-20261022/helpers/upstream/timing"
+          ],
+          "sha256": "10d3dcadd0e3df5998db2133524fa22bcc1ccae67fac241c03472b77ea3939e4"
+        }
+      },
+      "added_at_utc": "2026-10-22T15:53:11.850340+00:00"
+    }
+  },
+  "orders": [
+    [
+      "ref",
+      "on",
+      "off",
+      "default"
+    ],
+    [
+      "on",
+      "ref",
+      "default",
+      "off"
+    ],
+    [
+      "off",
+      "default",
+      "ref",
+      "on"
+    ],
+    [
+      "default",
+      "off",
+      "on",
+      "ref"
+    ]
+  ],
+  "loadavg": "0.48 1.49 1.70 3/2882 3460815\n",
+  "lock": "early-stop full timing on the final library (v6 vs upstream), started 2026-10-23T13:42:45+08:00, expected about 1.6 h\n",
+  "processes": "omitted from the package (desktop session listing); per-batch background CPU load is in batches.json"
+}

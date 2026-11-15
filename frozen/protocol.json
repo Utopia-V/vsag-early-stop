@@ -1,0 +1,249 @@
+{
+  "created_at_utc": "2026-10-22T13:47:23.543711+00:00",
+  "scope": "Alpha recalibration on the 18 FP32 points of runs/final-validation-20260912 at C=0.90/0.95/0.99; quality phases with the v3 library; timing prepared for the rebased library, not run here.",
+  "coverage_targets": {
+    "0.9": {
+      "C": 0.9,
+      "C_cal": 0.95
+    },
+    "0.95": {
+      "C": 0.95,
+      "C_cal": 0.975
+    },
+    "0.99": {
+      "C": 0.99,
+      "C_cal": 0.995
+    }
+  },
+  "fixed_ef": "reused: C=0.99 from runs/final-validation-20260912 (calibrated in final-development-20260911), C=0.90/0.95 from runs/early-stop-v3-coverage-c90-c95-20261013; see fixed-points.json",
+  "alphas": [
+    1.0,
+    1.01,
+    1.02,
+    1.03,
+    1.04,
+    1.05,
+    1.06,
+    1.07,
+    1.08,
+    1.09,
+    1.1,
+    1.11,
+    1.12,
+    1.13,
+    1.14,
+    1.15,
+    1.16,
+    1.17,
+    1.18,
+    1.19,
+    1.2,
+    1.21,
+    1.22,
+    1.225,
+    1.23,
+    1.24,
+    1.25,
+    1.26,
+    1.27,
+    1.28,
+    1.29,
+    1.3,
+    1.31875,
+    1.32,
+    1.34,
+    1.36,
+    1.38,
+    1.4,
+    1.42,
+    1.44,
+    1.46,
+    1.48,
+    1.5,
+    1.52,
+    1.54,
+    1.56,
+    1.58,
+    1.6,
+    1.65,
+    1.7,
+    1.75,
+    1.8,
+    1.85,
+    1.9,
+    2.0
+  ],
+  "alpha_grid": "1.00-1.30 step 0.01, 1.32-1.60 step 0.02, 1.65-1.90 step 0.05, 2.00; plus old values 1.225 and 1.31875",
+  "selection_rule": "rule C: on calibration at the fixed ef, fewest mean distance computations among alphas a such that a and every larger grid alpha have coverage >= C_cal and mean paired loss + 2 SE <= 0.005 (loss = fixed recall - alpha recall per query, SE = sample sd / sqrt(n)); ties -> larger alpha; ef <= 1.25 k -> fixed (rebased library skips early stop); none -> fixed",
+  "comparison_rules": {
+    "rule_b": "rule C without the 2 SE margin (mean paired loss <= 0.005)",
+    "old": "alpha recorded by the earlier campaign for the same point and tier",
+    "default": "alpha 1.5 at k=10, 1.15 at k=100; skipped where ef <= 1.25 k"
+  },
+  "validation_rule": "held-out: fixed coverage >= C; early stop coverage >= C and mean recall loss <= 0.005. The held-out queries were already used once to evaluate the earlier alpha choices; the DBpedia fresh queries were used once, at k100/R95 only.",
+  "recall": "distance-based: hit when exact angular distance <= k-th true neighbour distance + 2e-6",
+  "libraries": {
+    "v3": {
+      "path": "$BENCH/runs/early-stop-recalibration-20261022/libraries/v3/libvsag.so.1.0.0",
+      "source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/libraries/v3/libvsag.so.1.0.0",
+      "sha256": "30255d4b64debd483a599422e83d0cd644490cb7d1181b48c3310026bd8bd1c1",
+      "head": "f83e1910b72aba4c2a617164ba9d9192f3658ca9",
+      "note": "v3 Release build used by runs/early-stop-v3-coverage-c90-c95-20261013"
+    }
+  },
+  "inputs": {
+    "dbpedia": {
+      "index": {
+        "path": "$BENCH/runs/dbpedia-20260909-v2/hgraph.index",
+        "sha256": "d637b37403b145a273446d637c12c9def765da1aeee9ac77bdba904acf81dd46"
+      },
+      "calibration": {
+        "path": "$BENCH/runs/final-development-20260911/dbpedia/fixed/inputs/calibration.hdf5",
+        "sha256": "35faf43861a553530f7295cd189b3e168be7385e5c117ece723a19ce0ab50a0c"
+      },
+      "validation": {
+        "path": "$BENCH/runs/final-validation-20260912/dbpedia/inputs/validation.hdf5",
+        "sha256": "cae18ea59bff4a5b72159d5e641c63ea47d6cac5ca5821d4f6d9aa0d397c6397"
+      },
+      "fresh": {
+        "path": "$BENCH/runs/qlp-confirmation-dbpedia-20261007/confirmation.hdf5",
+        "sha256": "b5f0a9ce137dfd37d432bf8a27508f3f74c4f55fd6728d054fcf3e90a86428fa"
+      },
+      "create": {
+        "10": {
+          "path": "$BENCH/runs/early-stop-final-port-timing-20261008-v2/dbpedia/k10/create.json",
+          "sha256": "c74373c62c756e4205c89bb71af0d952c39d744c680c6627e7502a1551daafa6"
+        },
+        "100": {
+          "path": "$BENCH/runs/early-stop-final-port-timing-20261008-v2/dbpedia/k100/create.json",
+          "sha256": "c74373c62c756e4205c89bb71af0d952c39d744c680c6627e7502a1551daafa6"
+        }
+      }
+    },
+    "cohere": {
+      "index": {
+        "path": "$BENCH/runs/cohere-20260911/hgraph.index",
+        "sha256": "68ecf4bcf4a498b1abc5b00316678c2621be4468c0a05102a9cf9b46ae3e2a66"
+      },
+      "calibration": {
+        "path": "$BENCH/runs/final-development-20260911/cohere/fixed/inputs/calibration.hdf5",
+        "sha256": "34a46ab97f9b852a5ee36d0a77cd84c23864a88fd87f456916ac53293c55ee4e"
+      },
+      "validation": {
+        "path": "$BENCH/runs/final-validation-20260912/cohere/inputs/validation.hdf5",
+        "sha256": "c722ddfe56bae91aff3472eed25bee34b1f169b21982eddd40475b2124c91f5c"
+      },
+      "create": {
+        "10": {
+          "path": "$BENCH/runs/early-stop-final-port-timing-20261008-v2/cohere/k10/create.json",
+          "sha256": "66fd4a173c393aa8bd139bce2526c00bdb22108335e3a46d7e7d4ffb2e3abb7f"
+        },
+        "100": {
+          "path": "$BENCH/runs/early-stop-final-port-timing-20261008-v2/cohere/k100/create.json",
+          "sha256": "66fd4a173c393aa8bd139bce2526c00bdb22108335e3a46d7e7d4ffb2e3abb7f"
+        }
+      }
+    },
+    "laion": {
+      "index": {
+        "path": "$BENCH/runs/laion-20260911-duplicates/hgraph.index",
+        "sha256": "6ab94a500fe53c419c3bc23b507c09f58244bcbe80b659744c7c65d0556bbc43"
+      },
+      "calibration": {
+        "path": "$BENCH/runs/final-development-20260911/laion/fixed/inputs/calibration.hdf5",
+        "sha256": "ee6a7f0f997ac79c23ee6cf34d555d09bf0e9b2827ef793e0c5a41760f6daf35"
+      },
+      "validation": {
+        "path": "$BENCH/runs/final-validation-20260912/laion/inputs/validation.hdf5",
+        "sha256": "1f156b4c3fea02f0c77ecee6df87ebdf7bb22dedc9884c2c045a4b3b910e96f6"
+      },
+      "create": {
+        "10": {
+          "path": "$BENCH/runs/early-stop-final-port-timing-20261008-v2/laion/k10/create.json",
+          "sha256": "873ef43a909ce187a237190c450b7ddaf61c421ac77616a622ab2dd484b9ab01"
+        },
+        "100": {
+          "path": "$BENCH/runs/early-stop-final-port-timing-20261008-v2/laion/k100/create.json",
+          "sha256": "873ef43a909ce187a237190c450b7ddaf61c421ac77616a622ab2dd484b9ab01"
+        }
+      }
+    }
+  },
+  "quality_env": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "LD_LIBRARY_PATH": "$VSAG_ROOT/deps/system-prefix/usr/lib/x86_64-linux-gnu:$VSAG_ROOT/deps/system-prefix/usr/lib/x86_64-linux-gnu/openblas-pthread"
+  },
+  "quality_cpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "quality_niceness": 19,
+  "timing": {
+    "threads": [
+      1,
+      8
+    ],
+    "affinity": {
+      "1": "8",
+      "8": "8-15"
+    },
+    "repeats": 4,
+    "orders": [
+      [
+        "ref",
+        "on"
+      ],
+      [
+        "on",
+        "ref"
+      ],
+      [
+        "ref",
+        "on"
+      ],
+      [
+        "on",
+        "ref"
+      ]
+    ],
+    "env": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_PROC_BIND": "close",
+      "OMP_PLACES": "cores",
+      "LD_LIBRARY_PATH": "$VSAG_ROOT/deps/system-prefix/usr/lib/x86_64-linux-gnu:$VSAG_ROOT/deps/system-prefix/usr/lib/x86_64-linux-gnu/openblas-pthread"
+    },
+    "passes": "ceil(5000/N)",
+    "aggregation": "median of four batch statistics per arm",
+    "arms": "reference = upstream main fixed ef; candidate = rebased library with the rule C alpha",
+    "lock": "$VSAG_ROOT/handoffs/TIMING_IN_PROGRESS"
+  },
+  "amendments": [
+    {
+      "date": "2026-10-22",
+      "made_after": "the first held-out run of rules C, B, old and default (validate and fresh phases; REPORT.md of that run)",
+      "reason": "At C=0.99 the coverage side had no margin: on the calibration queries the fixed ef sits exactly at C_cal, so rule C picks the smallest alpha that happened to add zero calibration failures. DBpedia k100-r95 then added 7 held-out failures against a slack of 5.",
+      "rule": "rule C+m: take the rule C alpha on the full calibration set, then use the smallest grid alpha >= 1 + (alpha_C - 1) * (1 + m); m = 0.05 at C=0.90 and C=0.95, m = 0.25 at C=0.99. Points that are fixed or auto-off under rule C stay so.",
+      "margin_choice": "Cross-validation on the calibration queries only (source/cv_margin.py; output source/cv_margin.json and cv_margin.txt; earlier version source/cv_margin_v1.py): 300 random 2/3 vs 1/3 splits of each point's calibration queries; rule C on the 2/3; margin m applied; checked on the other third (fail = added failures above C_cal - C, or mean loss above 0.5 points). m = the smallest margin whose mean failure probability over the tier's points is at most 2.5%: C=0.90 3.9% at m=0 -> 0.8% at m=0.05; C=0.95 4.0% -> 0.8%; C=0.99 12.1% -> 2.1% at m=0.25 (3.9% at m=0.20). Cohere k10-r95 at C=0.99 stays near 34% at any margin because a single calibration query decides its boundary.",
+      "held_out_use": "The held-out sets and the DBpedia fresh queries are looked at a second time for rule C+m. m was fixed before this second look and is not changed after it.",
+      "margins": {
+        "0.9": 0.05,
+        "0.95": 0.05,
+        "0.99": 0.25
+      }
+    }
+  ]
+}

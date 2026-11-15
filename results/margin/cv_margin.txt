@@ -1,0 +1,27 @@
+== c90: 15 points
+  margin 0.00: P(fail on held-out third) mean 0.039 max 0.126 points>10% 3 | saving mean  12.7%
+  margin 0.05: P(fail on held-out third) mean 0.008 max 0.068 points>10% 0 | saving mean   9.5%
+  margin 0.10: P(fail on held-out third) mean 0.002 max 0.017 points>10% 0 | saving mean   8.6%
+  margin 0.15: P(fail on held-out third) mean 0.001 max 0.009 points>10% 0 | saving mean   7.7%
+  margin 0.20: P(fail on held-out third) mean 0.000 max 0.000 points>10% 0 | saving mean   6.9%
+  margin 0.25: P(fail on held-out third) mean 0.000 max 0.000 points>10% 0 | saving mean   6.1%
+  margin 0.33: P(fail on held-out third) mean 0.000 max 0.000 points>10% 0 | saving mean   5.1%
+  margin 0.50: P(fail on held-out third) mean 0.000 max 0.000 points>10% 0 | saving mean   3.5%
+== c95: 16 points
+  margin 0.00: P(fail on held-out third) mean 0.040 max 0.168 points>10% 3 | saving mean  18.1%
+  margin 0.05: P(fail on held-out third) mean 0.008 max 0.042 points>10% 0 | saving mean  14.3%
+  margin 0.10: P(fail on held-out third) mean 0.003 max 0.021 points>10% 0 | saving mean  13.2%
+  margin 0.15: P(fail on held-out third) mean 0.001 max 0.011 points>10% 0 | saving mean  11.4%
+  margin 0.20: P(fail on held-out third) mean 0.000 max 0.000 points>10% 0 | saving mean  10.5%
+  margin 0.25: P(fail on held-out third) mean 0.000 max 0.000 points>10% 0 | saving mean   9.4%
+  margin 0.33: P(fail on held-out third) mean 0.000 max 0.000 points>10% 0 | saving mean   7.8%
+  margin 0.50: P(fail on held-out third) mean 0.000 max 0.000 points>10% 0 | saving mean   5.7%
+== c99: 18 points
+  margin 0.00: P(fail on held-out third) mean 0.121 max 0.397 points>10% 7 | saving mean  36.3%
+  margin 0.05: P(fail on held-out third) mean 0.074 max 0.353 points>10% 4 | saving mean  31.9%
+  margin 0.10: P(fail on held-out third) mean 0.056 max 0.343 points>10% 3 | saving mean  30.5%
+  margin 0.15: P(fail on held-out third) mean 0.046 max 0.343 points>10% 2 | saving mean  27.9%
+  margin 0.20: P(fail on held-out third) mean 0.039 max 0.343 points>10% 2 | saving mean  26.5%
+  margin 0.25: P(fail on held-out third) mean 0.021 max 0.343 points>10% 1 | saving mean  25.3%
+  margin 0.33: P(fail on held-out third) mean 0.019 max 0.343 points>10% 1 | saving mean  22.5%
+  margin 0.50: P(fail on held-out third) mean 0.019 max 0.343 points>10% 1 | saving mean  18.6%

@@ -1,0 +1,29 @@
+{
+  "name": "dbpedia",
+  "archive": {
+    "url": "https://storage.googleapis.com/ann-filtered-benchmark/datasets/dbpedia_openai_1M.tgz",
+    "sha256": "b54909da6e2fc646174d51b2087a083f6800997979ce55aa29f7b54580f2033d",
+    "bytes": 5098686329
+  },
+  "base": {
+    "sha256": "5605c09cc553e7fea38cbf025622ab48097edaf4a6f817d85f39579b67c579c9",
+    "shape": [
+      975000,
+      1536
+    ],
+    "dtype": "float32"
+  },
+  "queries": {
+    "sha256": "ffa7fbc20d451266a26232fc250fcbbc154d3ba406845cbcc638ebdb837fa747"
+  },
+  "source_catalog": "https://github.com/qdrant/vector-db-benchmark/blob/master/datasets/datasets.json",
+  "source_query_rows": 5000,
+  "role_query_rows": {
+    "calibration": 1270,
+    "validation": 1815
+  },
+  "weighting": "One representative row per distinct FP32 query content, equal weight; not the original duplicate request frequencies.",
+  "evidence_scope": "Frozen 2026-09-12 campaign query roles, already evaluated. Reusing these rows is reproduction, not a new independent holdout.",
+  "conversion": "Preserve source base row IDs and values; float16 is expanded to float32. Stored train/test are not normalized.",
+  "truth": "Exhaustive FP64 cosine over the actual FP32 inputs; depth 100, equal scores ordered by base row ID. Source JSONL ground truth is not used."
+}

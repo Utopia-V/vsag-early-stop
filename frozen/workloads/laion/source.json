@@ -1,0 +1,29 @@
+{
+  "name": "laion",
+  "archive": {
+    "url": "https://storage.googleapis.com/ann-filtered-benchmark/datasets/laion-1m-no-filters.tgz",
+    "sha256": "c9aceb46ebdf32210fe1fbfe9100fff5b8a7f7d6f1c4a4a93ed227b9e910d28f",
+    "bytes": 1086461097
+  },
+  "base": {
+    "sha256": "95330284ed3eef469257af05418d8518f846764f7c5026210ea048582cc8e162",
+    "shape": [
+      1000000,
+      512
+    ],
+    "dtype": "float16"
+  },
+  "queries": {
+    "sha256": "c755ab4b85c459e4cb7040a602ced82d36c6001a833e0692aef36330acbbfbd6"
+  },
+  "source_catalog": "https://github.com/qdrant/vector-db-benchmark/blob/master/datasets/datasets.json",
+  "source_query_rows": 5000,
+  "role_query_rows": {
+    "calibration": 395,
+    "validation": 53
+  },
+  "weighting": "One representative row per distinct FP32 query content, equal weight; not the original duplicate request frequencies.",
+  "evidence_scope": "Frozen 2026-09-12 campaign query roles, already evaluated. Reusing these rows is reproduction, not a new independent holdout.",
+  "conversion": "Preserve source base row IDs and values; float16 is expanded to float32. Stored train/test are not normalized.",
+  "truth": "Exhaustive FP64 cosine over the actual FP32 inputs; depth 100, equal scores ordered by base row ID. Source JSONL ground truth is not used."
+}

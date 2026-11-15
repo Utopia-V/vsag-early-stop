@@ -1,0 +1,43 @@
+--- original/cv_margin.py
++++ scripts/cv_margin.py
+@@ -1,7 +1,21 @@
+-# Cross-validate alpha-margin rules on the calibration queries only (no held-out data).
++#!/usr/bin/env python3
++"""Choose the rule C+m margin m by cross-validation on the calibration queries only (no held-out data).
++
++usage: cv_margin.py QUALITY_DIR [OUTPUT_JSON]
++
++QUALITY_DIR is quality/<lib> of a run (it holds <ds>/calibration-k*.json and <ds>/selection-k*.json from the alpha
++phase). For every point with early stop: 300 random 2/3 vs 1/3 splits of its calibration queries; rule C on the 2/3;
++alpha raised by margin m; failure on the other third = added failures above C_cal - C, or mean recall loss above
++0.5 points. The chosen m per tier is the smallest margin whose mean failure probability over the tier's points is at
++most 2.5%. The delivered margins (0.05 at C=0.90 and 0.95, 0.25 at C=0.99) came from this script on the calibration
++outputs of 2026-10-22; results/margin/ holds its output.
++
++The computation is the original script's (seed 20261022); only the input and output paths became arguments and the
++chosen m is printed.
++"""
+ import json, math, re, sys
+ import numpy as np
+-R = "$BENCH/runs/early-stop-recalibration-20261022/quality/v3"
++R = sys.argv[1]
+ rng = np.random.default_rng(20261022)
+ MARGINS = [0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.33, 0.5]
+ REPS = 300
+@@ -50,7 +64,7 @@
+                               save=float(sv.mean()) if len(sv) else None,
+                               p_fail=float(np.mean(out[m]["fail"])) if len(out[m]["fail"]) else None)
+             rows.append(row)
+-json.dump(rows, open(sys.argv[1] if len(sys.argv) > 1 else "cv_margin.json", "w"), indent=1)
++json.dump(rows, open(sys.argv[2] if len(sys.argv) > 2 else "cv_margin.json", "w"), indent=1)
+ for C in ["c90", "c95", "c99"]:
+     sub = [r for r in rows if f" {C}-" in r["point"]]
+     print(f"== {C}: {len(sub)} points")
+@@ -58,3 +72,7 @@
+         pf = [r[m]["p_fail"] for r in sub if r[m]["p_fail"] is not None]
+         sv = [r[m]["save"] for r in sub if r[m]["save"] is not None]
+         print(f"  margin {m:4.2f}: P(fail on held-out third) mean {np.mean(pf):.3f} max {np.max(pf):.3f} points>10% {sum(p>0.10 for p in pf)} | saving mean {np.mean(sv)*100:5.1f}%")
++for C in ["c90", "c95", "c99"]:
++    sub = [r for r in rows if f" {C}-" in r["point"]]
++    chosen = next((m for m in MARGINS if np.mean([r[m]["p_fail"] for r in sub if r[m]["p_fail"] is not None]) <= 0.025), None)
++    print(f"chosen margin {C}: {chosen}", file=sys.stderr)

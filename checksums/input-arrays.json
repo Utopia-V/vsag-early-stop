@@ -1,0 +1,264 @@
+{
+  "semantics": "sha256 of each HDF5 dataset read into memory as a C-order little-endian array; file_sha256 is the original HDF5 file (container bytes differ when rewritten)",
+  "inputs": {
+    "dbpedia/calibration": {
+      "file_sha256": "35faf43861a553530f7295cd189b3e168be7385e5c117ece723a19ce0ab50a0c",
+      "arrays": {
+        "test": {
+          "shape": [
+            1270,
+            1536
+          ],
+          "dtype": "<f4",
+          "sha256": "f2998c0750ea65704383da6c30e9a768d18e4e20636b6f23e6415587ffafaae7"
+        },
+        "neighbors": {
+          "shape": [
+            1270,
+            100
+          ],
+          "dtype": "<i8",
+          "sha256": "cf0553d63589d5dfd691af5da899f79e03a1ec1378810c726486b7222b8b9ac4"
+        },
+        "distances": {
+          "shape": [
+            1270,
+            100
+          ],
+          "dtype": "<f4",
+          "sha256": "03cccb5792d107f6f49c4c9097346cdc70ff12c8e54686a6ae2139d24b6da078"
+        }
+      },
+      "train": {
+        "link": "base.hdf5:/train",
+        "shape": [
+          975000,
+          1536
+        ],
+        "dtype": "<f4"
+      }
+    },
+    "dbpedia/validation": {
+      "file_sha256": "cae18ea59bff4a5b72159d5e641c63ea47d6cac5ca5821d4f6d9aa0d397c6397",
+      "arrays": {
+        "test": {
+          "shape": [
+            1815,
+            1536
+          ],
+          "dtype": "<f4",
+          "sha256": "1ea120ea5b8ceed94139eecad9b89d86e51d4c290777c810436bbc556309fcee"
+        },
+        "neighbors": {
+          "shape": [
+            1815,
+            100
+          ],
+          "dtype": "<i8",
+          "sha256": "bd884c257d2d6f75c8167e04982b256fee90e9838d144ff032d956f6c837c845"
+        },
+        "distances": {
+          "shape": [
+            1815,
+            100
+          ],
+          "dtype": "<f4",
+          "sha256": "374fdcd2c4fefc082df581e0e28ff894c73a798020167c5c543a7ebf33580929"
+        }
+      },
+      "train": {
+        "link": "base.hdf5:/train",
+        "shape": [
+          975000,
+          1536
+        ],
+        "dtype": "<f4"
+      }
+    },
+    "dbpedia/fresh": {
+      "file_sha256": "b5f0a9ce137dfd37d432bf8a27508f3f74c4f55fd6728d054fcf3e90a86428fa",
+      "arrays": {
+        "test": {
+          "shape": [
+            2048,
+            1536
+          ],
+          "dtype": "<f4",
+          "sha256": "12656c2fdcfa63259a04596d6035ea69770607b52e45474c6304f18cd488061e"
+        },
+        "neighbors": {
+          "shape": [
+            2048,
+            100
+          ],
+          "dtype": "<i8",
+          "sha256": "2308e2cd84344127cf360d615faa7ed888287b469e7a61ed3df1f81e81c17226"
+        },
+        "distances": {
+          "shape": [
+            2048,
+            100
+          ],
+          "dtype": "<f4",
+          "sha256": "491b4a4baf10b9f4d0a3bbfa5a713c7221e873705dd23f89955d2c35fdde8068"
+        }
+      },
+      "train": {
+        "link": "base.hdf5:/train",
+        "shape": [
+          975000,
+          1536
+        ],
+        "dtype": "<f4"
+      }
+    },
+    "cohere/calibration": {
+      "file_sha256": "34a46ab97f9b852a5ee36d0a77cd84c23864a88fd87f456916ac53293c55ee4e",
+      "arrays": {
+        "test": {
+          "shape": [
+            398,
+            768
+          ],
+          "dtype": "<f4",
+          "sha256": "5d029cd2df18dcb081baef7b0e4e1f4d93117c3f9bb9dae359fdc1feb2f66c6e"
+        },
+        "neighbors": {
+          "shape": [
+            398,
+            100
+          ],
+          "dtype": "<i8",
+          "sha256": "7cdd444dcc3886a87a18fb47d67bc1a1e7e9a7d2db839a112d230d5fbdbd5e97"
+        },
+        "distances": {
+          "shape": [
+            398,
+            100
+          ],
+          "dtype": "<f4",
+          "sha256": "c2c870c9567c5f87f0f5598df00f1f2cec8a8f11f72a4c4a775b7ca80923e959"
+        }
+      },
+      "train": {
+        "link": "base.hdf5:/train",
+        "shape": [
+          999999,
+          768
+        ],
+        "dtype": "<f4"
+      }
+    },
+    "cohere/validation": {
+      "file_sha256": "c722ddfe56bae91aff3472eed25bee34b1f169b21982eddd40475b2124c91f5c",
+      "arrays": {
+        "test": {
+          "shape": [
+            601,
+            768
+          ],
+          "dtype": "<f4",
+          "sha256": "6e7539d1c66d0471f562e59168a2070a89f38466d5bbc474856ab9cf953d5c30"
+        },
+        "neighbors": {
+          "shape": [
+            601,
+            100
+          ],
+          "dtype": "<i8",
+          "sha256": "b42916b32973ad68c43d8751d06c3b06f6c8725d3631b788944c85bc95b0afde"
+        },
+        "distances": {
+          "shape": [
+            601,
+            100
+          ],
+          "dtype": "<f4",
+          "sha256": "d078a5999922a4967a8a7306aa7683f1088fc19d137fed33e0c94d7812a72140"
+        }
+      },
+      "train": {
+        "link": "base.hdf5:/train",
+        "shape": [
+          999999,
+          768
+        ],
+        "dtype": "<f4"
+      }
+    },
+    "laion/calibration": {
+      "file_sha256": "ee6a7f0f997ac79c23ee6cf34d555d09bf0e9b2827ef793e0c5a41760f6daf35",
+      "arrays": {
+        "test": {
+          "shape": [
+            395,
+            512
+          ],
+          "dtype": "<f4",
+          "sha256": "52860288678510d2052881a03fa0caa368e210bef61894ea198d08c3b4797869"
+        },
+        "neighbors": {
+          "shape": [
+            395,
+            100
+          ],
+          "dtype": "<i8",
+          "sha256": "dccebaf6d05eb55b99e80cd52db99c692b3b323281c591544168b8cc76ada11a"
+        },
+        "distances": {
+          "shape": [
+            395,
+            100
+          ],
+          "dtype": "<f4",
+          "sha256": "09c11c16c82d1afed2928b4a4be35a2a722c5f3339121ac0e99acbff4fe19f94"
+        }
+      },
+      "train": {
+        "link": "base.hdf5:/train",
+        "shape": [
+          1000000,
+          512
+        ],
+        "dtype": "<f4"
+      }
+    },
+    "laion/validation": {
+      "file_sha256": "1f156b4c3fea02f0c77ecee6df87ebdf7bb22dedc9884c2c045a4b3b910e96f6",
+      "arrays": {
+        "test": {
+          "shape": [
+            53,
+            512
+          ],
+          "dtype": "<f4",
+          "sha256": "e5cacf68c2a8f9899cb6f3cadd7b02e0ec4fd4a70aa6ffb00b1d9d62f287697e"
+        },
+        "neighbors": {
+          "shape": [
+            53,
+            100
+          ],
+          "dtype": "<i8",
+          "sha256": "43ec4832a199de4a228a0fc6a7589e9d84ea192f3dd34e69f6498a25c901f4c8"
+        },
+        "distances": {
+          "shape": [
+            53,
+            100
+          ],
+          "dtype": "<f4",
+          "sha256": "7e882de8c3afdae9d8e6697b80a571818f744269b0975f1f99e85a361b89e5a9"
+        }
+      },
+      "train": {
+        "link": "base.hdf5:/train",
+        "shape": [
+          1000000,
+          512
+        ],
+        "dtype": "<f4"
+      }
+    }
+  }
+}

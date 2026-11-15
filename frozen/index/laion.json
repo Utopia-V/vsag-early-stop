@@ -1,0 +1,14 @@
+{
+  "dim": 512,
+  "dtype": "float32",
+  "metric_type": "cosine",
+  "index_param": {
+    "base_quantization_type": "fp32",
+    "max_degree": 32,
+    "ef_construction": 500,
+    "use_reorder": false,
+    "build_thread_count": 12,
+    "support_duplicate": true,
+    "duplicate_distance_threshold": 0.0
+  }
+}

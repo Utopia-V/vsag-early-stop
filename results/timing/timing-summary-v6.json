@@ -1,0 +1,1122 @@
+[
+ {
+  "dataset": "dbpedia",
+  "point": "c90-k10-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 0.13294929311211945,
+  "p99_pct": 0.999721190725154
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k10-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 1.614660226488411,
+  "p99_pct": 1.2617915636868133
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 6.412482373868642,
+  "p99_pct": 0.7670219630268917
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c90-k10-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 3.034534110853457,
+  "p99_pct": 0.9021878525162492
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k10-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 5.080689972481437,
+  "p99_pct": 1.4059046414275969
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 4.988720761880103,
+  "p99_pct": 0.289727760475202
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c90-k10-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 3.7118856334762853,
+  "p99_pct": 0.5542567983269038
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k10-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 7.453116583779405,
+  "p99_pct": 0.017142611922338347
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 10.730771715415372,
+  "p99_pct": 0.12306644758142227
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r80",
+  "threads": 1,
+  "arm": "off",
+  "qps_pct": 0.1333167997964182,
+  "p99_pct": 0.030692582544645575
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r80",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 0.9158133907768047,
+  "p99_pct": 0.49252400416999365
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r90",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 2.7178124951721543,
+  "p99_pct": 0.14193175744885878
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r95",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 14.518537546678573,
+  "p99_pct": -0.30306006659446894
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c90-k10-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 2.046591406262081,
+  "p99_pct": -1.5956646149321756
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k10-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 3.967035349839847,
+  "p99_pct": -0.9583689355466021
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 7.755849010123981,
+  "p99_pct": -1.003278431651296
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c90-k10-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 5.3215595968354705,
+  "p99_pct": -2.045452783016671
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k10-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 6.543152657106916,
+  "p99_pct": -0.7991246219282857
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 5.60044645481554,
+  "p99_pct": -0.6910768750516212
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c90-k10-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 4.3260496008772975,
+  "p99_pct": -0.5980792220727835
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k10-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 7.983967504022544,
+  "p99_pct": -0.7771080906423435
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 11.229014284087711,
+  "p99_pct": -0.46662878177147604
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r80",
+  "threads": 8,
+  "arm": "off",
+  "qps_pct": 0.5505781731210249,
+  "p99_pct": -1.4757080298435596
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r80",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 1.5022051627136221,
+  "p99_pct": 0.2539588734566962
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r90",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 3.0348444314552125,
+  "p99_pct": -0.7031791654532782
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k10-r95",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 14.88569725486495,
+  "p99_pct": -0.7359732905850933
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k100-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": -0.5776035468334442,
+  "p99_pct": 1.7462636421621909
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 5.04784248114143,
+  "p99_pct": 0.5615086020297753
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c90-k100-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 3.248864421238835,
+  "p99_pct": 0.47044713875474997
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k100-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 7.807077874540511,
+  "p99_pct": 0.22430213421249334
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 7.6563251156506595,
+  "p99_pct": 0.24906505292727843
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c90-k100-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 7.391719983624398,
+  "p99_pct": 0.07409409491252461
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k100-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 10.70089366294873,
+  "p99_pct": 0.239550827213435
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 30.446715895788856,
+  "p99_pct": -0.353375063651157
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r80",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": -1.2032016830682721,
+  "p99_pct": 1.7231108866131706
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r90",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": -0.328508718494561,
+  "p99_pct": 1.0651696869216352
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r95",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 5.784265426193855,
+  "p99_pct": 0.6835747062980033
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k100-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 0.6541592401252814,
+  "p99_pct": 0.031029769952667152
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 5.876197331465164,
+  "p99_pct": -0.8368612073617214
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c90-k100-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 2.9773915273101608,
+  "p99_pct": 1.8971957440514302
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k100-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 8.34357827517691,
+  "p99_pct": 0.6002468784104025
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 7.827801810663956,
+  "p99_pct": -0.0731181890542274
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c90-k100-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 7.750867098968641,
+  "p99_pct": -0.46268207187260657
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c95-k100-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 10.37311563401073,
+  "p99_pct": 0.9477795201793526
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 30.78253999982482,
+  "p99_pct": -1.0098861817067473
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r80",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 0.5322174157522284,
+  "p99_pct": -0.7092761432310652
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r90",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 0.36217185872571633,
+  "p99_pct": 0.5848246190793986
+ },
+ {
+  "dataset": "dbpedia",
+  "point": "c99-k100-r95",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 6.515102846237525,
+  "p99_pct": 0.0727646237874211
+ },
+ {
+  "dataset": "cohere",
+  "point": "c90-k10-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 2.627250235266885,
+  "p99_pct": 1.0537497300221474
+ },
+ {
+  "dataset": "cohere",
+  "point": "c95-k10-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 6.193725989262447,
+  "p99_pct": -0.057053784113477946
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 4.970161660286891,
+  "p99_pct": 0.5751861783924284
+ },
+ {
+  "dataset": "cohere",
+  "point": "c90-k10-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 4.067603122290038,
+  "p99_pct": -0.2785915242166368
+ },
+ {
+  "dataset": "cohere",
+  "point": "c95-k10-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 4.38936028999035,
+  "p99_pct": 0.5127330277584434
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 4.424910293795037,
+  "p99_pct": 0.6875298732202566
+ },
+ {
+  "dataset": "cohere",
+  "point": "c90-k10-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 3.6399168746452943,
+  "p99_pct": 0.6783370574100331
+ },
+ {
+  "dataset": "cohere",
+  "point": "c95-k10-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 11.840509190301447,
+  "p99_pct": 0.8828391124946222
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 1.6564757309145222,
+  "p99_pct": 2.102674026713032
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r80",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": -1.3441351379021285,
+  "p99_pct": 0.19288611980398684
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r90",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": -1.0337621573577849,
+  "p99_pct": 0.8064073331919275
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r95",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 36.220405596093684,
+  "p99_pct": 2.059743391990935
+ },
+ {
+  "dataset": "cohere",
+  "point": "c90-k10-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 5.852728178275626,
+  "p99_pct": -0.6222896953936896
+ },
+ {
+  "dataset": "cohere",
+  "point": "c95-k10-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 8.179700445987564,
+  "p99_pct": -1.1016385623315585
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 7.386285092419627,
+  "p99_pct": -0.653652176958019
+ },
+ {
+  "dataset": "cohere",
+  "point": "c90-k10-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 6.054559352706718,
+  "p99_pct": -1.9974302536320039
+ },
+ {
+  "dataset": "cohere",
+  "point": "c95-k10-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 5.906287950304318,
+  "p99_pct": -0.7135639622868695
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 6.7168213453627175,
+  "p99_pct": -1.3535232673891358
+ },
+ {
+  "dataset": "cohere",
+  "point": "c90-k10-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 5.258761583433198,
+  "p99_pct": -0.678066694793273
+ },
+ {
+  "dataset": "cohere",
+  "point": "c95-k10-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 14.326538752764236,
+  "p99_pct": -0.5250407580449092
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 3.3306789170612916,
+  "p99_pct": 0.0119218035175237
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r80",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 0.6230548870338879,
+  "p99_pct": 0.13466782433494018
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r90",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 1.7200428376140025,
+  "p99_pct": -1.3551524860234423
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k10-r95",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 42.66720227941727,
+  "p99_pct": -1.5789893381234208
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": -3.1416894462033724,
+  "p99_pct": 3.2089389695334773
+ },
+ {
+  "dataset": "cohere",
+  "point": "c90-k100-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 1.1596323911110034,
+  "p99_pct": 1.9575385013477415
+ },
+ {
+  "dataset": "cohere",
+  "point": "c95-k100-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 3.3801335554000076,
+  "p99_pct": 0.8053675378894525
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 6.855178023797578,
+  "p99_pct": 0.7411785265882145
+ },
+ {
+  "dataset": "cohere",
+  "point": "c90-k100-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 6.961103141249396,
+  "p99_pct": 1.1938911428350991
+ },
+ {
+  "dataset": "cohere",
+  "point": "c95-k100-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 21.91750289309053,
+  "p99_pct": 1.840111050642406
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 28.645757845135392,
+  "p99_pct": 1.1378958641635535
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r95",
+  "threads": 1,
+  "arm": "off",
+  "qps_pct": -2.433063641368804,
+  "p99_pct": 1.050674869755369
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r80",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": -4.849517075470558,
+  "p99_pct": 2.9503288211124783
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r90",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": -1.8787814597200736,
+  "p99_pct": 1.9900922560591
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r95",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 14.35594002172644,
+  "p99_pct": 1.4445769422734003
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 1.4242776557027241,
+  "p99_pct": -1.7118006774090446
+ },
+ {
+  "dataset": "cohere",
+  "point": "c90-k100-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 4.857614663377063,
+  "p99_pct": -3.6898252584260547
+ },
+ {
+  "dataset": "cohere",
+  "point": "c95-k100-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 6.534800897924043,
+  "p99_pct": -2.867143162226313
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 9.663541691751831,
+  "p99_pct": -1.950728421190746
+ },
+ {
+  "dataset": "cohere",
+  "point": "c90-k100-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 9.230731613793196,
+  "p99_pct": -2.3988939849411253
+ },
+ {
+  "dataset": "cohere",
+  "point": "c95-k100-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 28.21908648074887,
+  "p99_pct": -2.6067227426712236
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 35.65929314404508,
+  "p99_pct": -3.225342706320916
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r95",
+  "threads": 8,
+  "arm": "off",
+  "qps_pct": -0.2213718175613053,
+  "p99_pct": -1.3557547671336891
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r80",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": -0.7122151518028375,
+  "p99_pct": 0.536042425470896
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r90",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 0.7083373675506266,
+  "p99_pct": -0.13366967543763053
+ },
+ {
+  "dataset": "cohere",
+  "point": "c99-k100-r95",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 19.424566076951336,
+  "p99_pct": -2.179437735793698
+ },
+ {
+  "dataset": "laion",
+  "point": "c90-k10-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 1.8309271014934154,
+  "p99_pct": 3.2120431301016623
+ },
+ {
+  "dataset": "laion",
+  "point": "c95-k10-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 13.307847857542157,
+  "p99_pct": 3.9144447304927183
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 128.54813786762395,
+  "p99_pct": 0.6123748713442865
+ },
+ {
+  "dataset": "laion",
+  "point": "c90-k10-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 12.578295092188043,
+  "p99_pct": 3.805815356634753
+ },
+ {
+  "dataset": "laion",
+  "point": "c95-k10-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 51.84034357567839,
+  "p99_pct": 0.9223530985189967
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 100.14434650309886,
+  "p99_pct": 1.0032763797315454
+ },
+ {
+  "dataset": "laion",
+  "point": "c90-k10-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 10.583285332467554,
+  "p99_pct": 2.9905555026916915
+ },
+ {
+  "dataset": "laion",
+  "point": "c95-k10-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 28.18906320820983,
+  "p99_pct": 1.1088463460702656
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 236.72082495943812,
+  "p99_pct": -6.128609809829669
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r95",
+  "threads": 1,
+  "arm": "off",
+  "qps_pct": 0.6450983081888637,
+  "p99_pct": -0.47899822973013784
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r80",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 20.71246843869187,
+  "p99_pct": 1.2614868734973896
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r90",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 23.066365066670215,
+  "p99_pct": 1.1825608747751062
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r95",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 133.12823610798978,
+  "p99_pct": -0.41383039893449336
+ },
+ {
+  "dataset": "laion",
+  "point": "c90-k10-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 11.368459116346472,
+  "p99_pct": -5.745871050349123
+ },
+ {
+  "dataset": "laion",
+  "point": "c95-k10-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 21.906271400340117,
+  "p99_pct": -3.9524746535477817
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 147.037456013982,
+  "p99_pct": -4.379463566540309
+ },
+ {
+  "dataset": "laion",
+  "point": "c90-k10-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 19.47208028572038,
+  "p99_pct": -1.1504948575268088
+ },
+ {
+  "dataset": "laion",
+  "point": "c95-k10-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 61.945326631936325,
+  "p99_pct": -2.8744362381601007
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 111.34553569723212,
+  "p99_pct": -2.63779508479017
+ },
+ {
+  "dataset": "laion",
+  "point": "c90-k10-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 14.174787640364883,
+  "p99_pct": 0.40858726669033274
+ },
+ {
+  "dataset": "laion",
+  "point": "c95-k10-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 31.17582839517189,
+  "p99_pct": -1.5749461507261913
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 249.49598350616924,
+  "p99_pct": -10.006125611943048
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r95",
+  "threads": 8,
+  "arm": "off",
+  "qps_pct": 0.19349494146929658,
+  "p99_pct": -0.3060072115825534
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r80",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 23.34536903138698,
+  "p99_pct": -1.1320900015739994
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r90",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 25.367331337407023,
+  "p99_pct": -1.7211182913676026
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k10-r95",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 138.74901422182649,
+  "p99_pct": -2.907887964827239
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r80",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 38.617383573233866,
+  "p99_pct": 1.288439965093005
+ },
+ {
+  "dataset": "laion",
+  "point": "c90-k100-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": -0.02259177380726385,
+  "p99_pct": 4.688298164775162
+ },
+ {
+  "dataset": "laion",
+  "point": "c95-k100-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 4.450353949659117,
+  "p99_pct": 3.5651017583019637
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r90",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 52.91458998836575,
+  "p99_pct": 1.24823361411066
+ },
+ {
+  "dataset": "laion",
+  "point": "c90-k100-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 8.976247002199429,
+  "p99_pct": 2.885546619339948
+ },
+ {
+  "dataset": "laion",
+  "point": "c95-k100-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 24.37471849216655,
+  "p99_pct": 1.654471974889546
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r95",
+  "threads": 1,
+  "arm": "on",
+  "qps_pct": 120.57198400043987,
+  "p99_pct": -8.35312248385705
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r80",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 13.391809167078932,
+  "p99_pct": 1.4063893499426854
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r90",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 24.326679363196206,
+  "p99_pct": 1.7981755149121312
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r95",
+  "threads": 1,
+  "arm": "default",
+  "qps_pct": 119.42490738828164,
+  "p99_pct": -8.32895265304694
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r80",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 45.40301196819354,
+  "p99_pct": -6.762453061742605
+ },
+ {
+  "dataset": "laion",
+  "point": "c90-k100-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 4.4165413129317415,
+  "p99_pct": -5.010629955957029
+ },
+ {
+  "dataset": "laion",
+  "point": "c95-k100-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 8.313497545951165,
+  "p99_pct": 0.23457466991585818
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r90",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 59.457191601505656,
+  "p99_pct": -5.945463056451928
+ },
+ {
+  "dataset": "laion",
+  "point": "c90-k100-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 19.148361070727063,
+  "p99_pct": -11.693108708463157
+ },
+ {
+  "dataset": "laion",
+  "point": "c95-k100-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 35.901984588055115,
+  "p99_pct": -12.528473673706145
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r95",
+  "threads": 8,
+  "arm": "on",
+  "qps_pct": 136.9841799948158,
+  "p99_pct": -20.71335743091683
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r80",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 15.635651340553025,
+  "p99_pct": -3.7374372433623364
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r90",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 26.927119305952132,
+  "p99_pct": 0.3843792457501678
+ },
+ {
+  "dataset": "laion",
+  "point": "c99-k100-r95",
+  "threads": 8,
+  "arm": "default",
+  "qps_pct": 137.7818811135472,
+  "p99_pct": -20.439499591721955
+ }
+]

@@ -1,0 +1,552 @@
+--- original/recalibrate.py
++++ scripts/recalibrate.py
+@@ -3,10 +3,14 @@
+ 
+ Re-selects alpha on the 18 FP32 points (DBpedia, Cohere, LAION; k=10/100; R=0.80/0.90/0.95) at query coverage
+ C = 0.90 / 0.95 / 0.99 with the rule approved on 2026-10-22, then checks every candidate configuration on the held-out
+-queries of runs/final-validation-20260912 (already used once, to evaluate the earlier alpha choices) and, for DBpedia,
+-on the 2048 queries of runs/qlp-confirmation-dbpedia-20261007 (used once before, only at k100/R95).
++queries and, for DBpedia, on 2048 fresh queries (used once before, only at k100/R95).
+ 
+-Protocol (written to protocol.json by `prepare`, before any selection):
++Reproduction-package version: the script that produced the delivered quality and timing numbers, with the paths of
++the original machine replaced by config.toml (scripts/config.py). The phases that installed libraries into the
++original run directory (prepare, add-lib) and recorded the amendment (amend) are replaced by scripts/build_vsag.py and
++the frozen protocol in frozen/protocol.json. provenance/recalibrate.diff lists every change.
++
++Protocol (frozen/protocol.json, written before any selection):
+ - C_cal = (1+C)/2. Fixed ef per point and tier is reused from earlier calibrations on the same calibration queries:
+   C=0.99 from runs/final-validation-20260912 (calibrated in runs/final-development-20260911), C=0.90/0.95 from
+   runs/early-stop-v3-coverage-c90-c95-20261013. Fixed is re-run at that ef to get per-query recalls.
+@@ -27,19 +31,17 @@
+ Amendment (2026-10-22, after the first held-out run): rule C+m = smallest grid alpha >= 1 + (alpha_C - 1)(1 + m),
+ m = 0.05 at C=0.90/0.95 and 0.25 at C=0.99, chosen by cross-validation on the calibration queries (cv_margin.py).
+ 
+-usage: recalibrate.py [--lib ROLE] prepare | add-lib ROLE LIBRARY INCLUDE_DIR HDF5_DIR | alpha [ds ...] |
+-                      validate [ds ...] | fresh | amend | validate-cm [ds ...] | fresh-cm |
+-                      compare-libs ROLE_A ROLE_B | timing CANDIDATE REFERENCE | report
++usage: recalibrate.py [--lib ROLE] alpha [ds ...] | validate [ds ...] | fresh | validate-cm [ds ...] | fresh-cm |
++                      default-check | compare-libs ROLE_A ROLE_B | timing [CANDIDATE REFERENCE] [--force] |
++                      timing-report | report
+ """
+ import ctypes
+-from datetime import datetime, timezone
+ import hashlib
+ import json
+ import math
+ import os
+ from pathlib import Path
+ import resource
+-import shutil
+ import struct
+ import subprocess
+ import sys
+@@ -48,35 +50,13 @@
+ import h5py
+ import numpy as np
+ 
+-ROOT = Path('$VSAG_ROOT')
+-BENCH = ROOT / 'benchmarks/ospp-fixed-ef'
+-HERE = BENCH / 'analysis/early-stop-recalibration-20261022'
+-RUN = Path(os.environ.get('RECAL_RUN', BENCH / 'runs/early-stop-recalibration-20261022'))
+-PREFIX = ROOT / 'deps/system-prefix/usr/lib/x86_64-linux-gnu'
+-C9095 = BENCH / 'runs/early-stop-v3-coverage-c90-c95-20261013'
+-V3_LIB = C9095 / 'libraries/v3/libvsag.so.1.0.0'  # frozen copy of worktrees/hgraph-early-stop-v2/build-release-perf
+-V3_SHA = '30255d4b64debd483a599422e83d0cd644490cb7d1181b48c3310026bd8bd1c1'
+-V3_HEAD = 'f83e1910b72aba4c2a617164ba9d9192f3658ca9'
+-SIGNATURE = C9095 / 'multi_signature'  # built against the v3 headers (runs/early-stop-v3-sq8-cohere-20261012/build.json)
+-SIGNATURE_SHA = '497d4d37eac3e150a8cd2ad6ac6717e73e8f10c5bef2084222b2221c3f520d77'
+-SIGNATURE_SRC = BENCH / 'analysis/early-stop-v3-20261012/multi_signature.cpp'
+-TIMING_SRC = BENCH / 'runs/joint-budget-development-20261007/timing/source/timing.cpp'
+-NATIVE_RECALL = BENCH / 'runs/joint-budget-development-20261007/source/native_recall.so'
+-V99_PROTOCOL = BENCH / 'runs/final-validation-20260912/protocol.json'
+-CREATE = BENCH / 'runs/early-stop-final-port-timing-20261008-v2'
+-LOCK = ROOT / 'handoffs/TIMING_IN_PROGRESS'
+-DATASETS = {
+-    'dbpedia': dict(dim=1536, index=BENCH / 'runs/dbpedia-20260909-v2/hgraph.index', processes=5,
+-                    calibration=BENCH / 'runs/final-development-20260911/dbpedia/fixed/inputs/calibration.hdf5',
+-                    validation=BENCH / 'runs/final-validation-20260912/dbpedia/inputs/validation.hdf5',
+-                    fresh=BENCH / 'runs/qlp-confirmation-dbpedia-20261007/confirmation.hdf5'),
+-    'cohere': dict(dim=768, index=BENCH / 'runs/cohere-20260911/hgraph.index', processes=6,
+-                   calibration=BENCH / 'runs/final-development-20260911/cohere/fixed/inputs/calibration.hdf5',
+-                   validation=BENCH / 'runs/final-validation-20260912/cohere/inputs/validation.hdf5'),
+-    'laion': dict(dim=512, index=BENCH / 'runs/laion-20260911-duplicates/hgraph.index', processes=6,
+-                  calibration=BENCH / 'runs/final-development-20260911/laion/fixed/inputs/calibration.hdf5',
+-                  validation=BENCH / 'runs/final-validation-20260912/laion/inputs/validation.hdf5'),
+-}
++import config
++
++CFG = config.load()
++RUN = Path(os.environ.get('RECAL_RUN', CFG['run']))
++NATIVE_RECALL = CFG['native_recall']
++FIXED_POINTS = CFG['fixed_points']
++DATASETS = {ds: dict(d, processes=CFG['processes'][ds]) for ds, d in CFG['datasets'].items()}
+ KS = [10, 100]
+ RS = [0.80, 0.90, 0.95]
+ CS = {0.90: 0.95, 0.95: 0.975, 0.99: 0.995}
+@@ -85,16 +65,15 @@
+ AUTO_OFF_RATIO = 1.25
+ DEFAULT_ALPHA = {10: 1.5, 100: 1.15}
+ # Amendment (2026-10-22, after the first held-out run): rule C+m puts a margin on top of the rule C alpha. m was chosen
+-# by cross-validation on the calibration queries only (source/cv_margin.py); see protocol.json "amendments".
+-MARGIN = {0.90: 0.05, 0.95: 0.05, 0.99: 0.25}
+-QUALITY_CPUS = list(range(0, 8)) + list(range(16, 24))
+-THREADS = [1, 8]
+-AFFINITY = {1: '8', 8: '8-15'}
++# by cross-validation on the calibration queries only (scripts/cv_margin.py); see protocol.json "amendments".
++MARGIN = CFG['margins']
++QUALITY_CPUS = CFG['quality_cpus']
++THREADS = CFG['timing_threads']
++AFFINITY = CFG['timing_affinity']
+ REPEATS = 4
+ ORDERS = [['ref', 'on'], ['on', 'ref'], ['ref', 'on'], ['on', 'ref']]
+-ENV = {'OPENBLAS_NUM_THREADS': '1', 'LD_LIBRARY_PATH': f'{PREFIX}:{PREFIX}/openblas-pthread'}
+-TIMING_ENV = {'OPENBLAS_NUM_THREADS': '1', 'OMP_PROC_BIND': 'close', 'OMP_PLACES': 'cores',
+-              'LD_LIBRARY_PATH': f'{PREFIX}:{PREFIX}/openblas-pthread'}
++ENV = {'OPENBLAS_NUM_THREADS': '1'}
++TIMING_ENV = {'OPENBLAS_NUM_THREADS': '1', 'OMP_PROC_BIND': 'close', 'OMP_PLACES': 'cores'}
+ 
+ 
+ def make_grid():
+@@ -132,7 +111,7 @@
+ 
+ 
+ def create_path(ds, k):
+-    return CREATE / ds / f'k{k}' / 'create.json'
++    return DATASETS[ds]['create']  # the same create parameters at k=10 and k=100
+ 
+ 
+ def qdir(lib, ds):
+@@ -150,118 +129,29 @@
+ 
+ 
+ def fixed_points():
+-    """{(ds, k, R, C): ef, its source, and the alpha chosen for that point by the earlier campaign}."""
++    """{(ds, k, R, C): ef, its source, and the alpha chosen for that point by the earlier campaign}.
++
++    Read from the frozen fixed-points.json (or the output of calibrate_ef.py, see config.toml [selection])."""
+     out = {}
+-    for c in read(V99_PROTOCOL)['configurations']:
+-        hp = c['search_parameters']['hgraph']
+-        out[(c['dataset'], c['k'], round(c['R'], 2), 0.99)] = dict(
+-            ef=hp['ef_search'], ef_source=str(V99_PROTOCOL), old_alpha=hp.get('early_stop', {}).get('alpha'),
+-            old_rule='September freeze (quality_at_target_speed, final-development-20260911)')
+-    for ds in DATASETS:
+-        for k in KS:
+-            path = C9095 / 'quality' / ds / f'selection-k{k}.json'
+-            for p in read(path).values():
+-                out[(ds, k, round(p['R'], 2), p['C'])] = dict(
+-                    ef=p['fixed_ef'], ef_source=str(C9095 / 'quality' / ds / f'fixed-k{k}.json'),
+-                    old_alpha=p['chosen_alpha'],
+-                    old_rule='2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)')
++    for p in read(FIXED_POINTS):
++        out[(p['dataset'], p['k'], round(p['R'], 2), p['C'])] = dict(
++            ef=p['ef'], ef_source=p['ef_source'], old_alpha=p['old_alpha'], old_rule=p['old_rule'])
+     out = {key: v for key, v in out.items() if key[0] in DATASETS and key[1] in KS}
+     assert len(out) == len(DATASETS) * len(KS) * len(RS) * len(CS), len(out)
+     return out
+ 
+ 
+ def library_dir(role):
+-    return RUN / 'libraries' / role
++    """Directory holding libvsag.so of a library role (config.toml [libraries.ROLE])."""
++    return CFG['libraries'][role]['lib']
+ 
+ 
+ def helper(role, name):
+-    path = RUN / 'helpers' / role / name
+-    assert path.exists(), f'no {name} helper for library {role}'
++    path = CFG['libraries'][role]['helpers'] / name
++    assert path.exists(), f'no {name} helper for library {role} (run scripts/build_vsag.py)'
+     return path
+ 
+ 
+-def install_library(role, source, sha=None):
+-    folder = library_dir(role)
+-    folder.mkdir(parents=True, exist_ok=False)
+-    subprocess.run(['cp', '--reflink=auto', str(source), str(folder / 'libvsag.so.1.0.0')], check=True)
+-    for link in ['libvsag.so', 'libvsag.so.1.0']:
+-        (folder / link).symlink_to('libvsag.so.1.0.0')
+-    value = digest(folder / 'libvsag.so.1.0.0')
+-    if sha is not None:
+-        assert value == sha, (role, value)
+-    return dict(path=str(folder / 'libvsag.so.1.0.0'), source=str(source), sha256=value)
+-
+-
+-def prepare():
+-    RUN.mkdir(parents=True, exist_ok=False)
+-    (RUN / 'source').mkdir()
+-    shutil.copy2(Path(__file__), RUN / 'source' / 'recalibrate.py')
+-    shutil.copy2(SIGNATURE_SRC, RUN / 'source' / 'multi_signature.cpp')
+-    libs = {'v3': install_library('v3', V3_LIB, V3_SHA)}
+-    libs['v3'].update(head=V3_HEAD, note='v3 Release build used by runs/early-stop-v3-coverage-c90-c95-20261013')
+-    (RUN / 'helpers/v3').mkdir(parents=True)
+-    shutil.copy2(SIGNATURE, RUN / 'helpers/v3/multi_signature')
+-    assert digest(RUN / 'helpers/v3/multi_signature') == SIGNATURE_SHA
+-    old_inputs = read(C9095 / 'protocol.json')['inputs']
+-    inputs = {}
+-    for ds, d in DATASETS.items():
+-        inputs[ds] = {}
+-        for role in ['index', 'calibration', 'validation', 'fresh']:
+-            if role in d:
+-                inputs[ds][role] = dict(path=str(d[role]), sha256=digest(d[role]))
+-                if role in old_inputs[ds]:
+-                    assert inputs[ds][role]['sha256'] == old_inputs[ds][role]['sha256'], (ds, role)
+-        inputs[ds]['create'] = {str(k): dict(path=str(create_path(ds, k)), sha256=digest(create_path(ds, k))) for k in KS}
+-    points = fixed_points()
+-    save(RUN / 'fixed-points.json', [dict(dataset=ds, k=k, R=R, C=C, **v) for (ds, k, R, C), v in sorted(points.items())])
+-    save(RUN / 'protocol.json', dict(
+-        created_at_utc=datetime.now(timezone.utc).isoformat(),
+-        scope='Alpha recalibration on the 18 FP32 points of runs/final-validation-20260912 at C=0.90/0.95/0.99; '
+-              'quality phases with the v3 library; timing prepared for the rebased library, not run here.',
+-        coverage_targets={str(c): dict(C=c, C_cal=cal) for c, cal in CS.items()},
+-        fixed_ef='reused: C=0.99 from runs/final-validation-20260912 (calibrated in final-development-20260911), '
+-                 'C=0.90/0.95 from runs/early-stop-v3-coverage-c90-c95-20261013; see fixed-points.json',
+-        alphas=ALPHAS,
+-        alpha_grid='1.00-1.30 step 0.01, 1.32-1.60 step 0.02, 1.65-1.90 step 0.05, 2.00; plus old values 1.225 and '
+-                   '1.31875',
+-        selection_rule='rule C: on calibration at the fixed ef, fewest mean distance computations among alphas a such '
+-                       'that a and every larger grid alpha have coverage >= C_cal and mean paired loss + 2 SE <= 0.005 '
+-                       '(loss = fixed recall - alpha recall per query, SE = sample sd / sqrt(n)); ties -> larger '
+-                       'alpha; ef <= 1.25 k -> fixed (rebased library skips early stop); none -> fixed',
+-        comparison_rules=dict(rule_b='rule C without the 2 SE margin (mean paired loss <= 0.005)',
+-                              old='alpha recorded by the earlier campaign for the same point and tier',
+-                              default='alpha 1.5 at k=10, 1.15 at k=100; skipped where ef <= 1.25 k'),
+-        validation_rule='held-out: fixed coverage >= C; early stop coverage >= C and mean recall loss <= 0.005. '
+-                        'The held-out queries were already used once to evaluate the earlier alpha choices; the DBpedia '
+-                        'fresh queries were used once, at k100/R95 only.',
+-        recall='distance-based: hit when exact angular distance <= k-th true neighbour distance + 2e-6',
+-        libraries=libs, inputs=inputs, quality_env=ENV, quality_cpus=QUALITY_CPUS, quality_niceness=19,
+-        timing=dict(threads=THREADS, affinity={str(t): a for t, a in AFFINITY.items()}, repeats=REPEATS, orders=ORDERS,
+-                    env=TIMING_ENV, passes='ceil(5000/N)', aggregation='median of four batch statistics per arm',
+-                    arms='reference = upstream main fixed ef; candidate = rebased library with the rule C alpha',
+-                    lock=str(LOCK))))
+-    print('prepared', RUN)
+-
+-
+-def add_lib(role, library, include, hdf5):
+-    """Install another library and build the helpers against its public headers."""
+-    info = install_library(role, Path(library))
+-    out = RUN / 'helpers' / role
+-    out.mkdir(parents=True, exist_ok=False)
+-    env = dict(os.environ, LIBRARY_PATH=f'{PREFIX}:{PREFIX}/openblas-pthread')
+-    hdf5 = Path(hdf5)
+-    helpers = {}
+-    for name, src in [('multi_signature', SIGNATURE_SRC), ('timing', TIMING_SRC)]:
+-        argv = ['nice', '-n', '19', 'c++', '-O2', '-std=c++17', '-fopenmp', str(src), '-I' + str(include),
+-                '-I' + str(hdf5 / 'include'), '-L' + str(library_dir(role)), '-lvsag', str(hdf5 / 'lib/libhdf5_cpp.a'),
+-                str(hdf5 / 'lib/libhdf5.a'), str(PREFIX / 'libz.a'), '-ldl', '-o', str(out / name)]
+-        subprocess.run(argv, env=env, check=True)
+-        helpers[name] = dict(command=argv, sha256=digest(out / name))
+-    save(RUN / 'libraries' / f'{role}.json', dict(library=info, include=str(include), helpers=helpers,
+-                                                   added_at_utc=datetime.now(timezone.utc).isoformat()))
+-    print('added', role, info['sha256'])
+-
+-
+ class Truth:
+     def __init__(self, path):
+         with h5py.File(path, 'r') as f:
+@@ -326,7 +216,7 @@
+         chunks[i].append(name)
+         loads[i] += cost
+     env = dict(os.environ, **ENV)
+-    env['LD_LIBRARY_PATH'] = str(library_dir(lib)) + ':' + ENV['LD_LIBRARY_PATH']
++    env['LD_LIBRARY_PATH'] = str(library_dir(lib))
+     for key in ['OMP_PROC_BIND', 'OMP_PLACES']:
+         env.pop(key, None)
+     processes = []
+@@ -472,33 +362,38 @@
+         rows = run_modes(ds, role, k, modes, f'k{k}-{role}', lib)
+         results = {name: summarize(truth, k, r) for name, r in rows.items()}
+         store(qdir(lib, ds) / f'{role}-k{k}.json', results)
+-        out = {}
+-        for tag, s in selection.items():
+-            ef, R, C = s['fixed_ef'], s['R'], s['C']
+-            f_rec, f_dc, _ = results[alpha_name(ef, None)]
+-            entry = dict(dataset=ds, k=k, R=R, C=C, fixed_ef=ef, queries=len(f_rec), auto_off=s['auto_off'],
+-                         fixed=fixed_stats(f_rec, f_dc, R))
+-            entry['fixed']['quality_pass'] = bool(entry['fixed']['coverage'] >= C)
+-            for arm in ARMS:
+-                a = arm_alpha(s, arm)
+-                if a is None:
+-                    entry[arm] = None
+-                    continue
+-                rec, dc, stops = results[alpha_name(ef, a)]
+-                e = stats(f_rec, f_dc, rec, dc, stops, R)
+-                e.update(alpha=a, quality_pass=bool(e['coverage'] >= C and e['mean_loss'] <= LOSS))
+-                e['status'] = ('fixed_fails' if not entry['fixed']['quality_pass'] else
+-                               'pass' if e['quality_pass'] else 'early_stop_fails')
+-                entry[arm] = e
+-            c = entry['rule_c']
+-            entry['status'] = ('fixed_fails' if not entry['fixed']['quality_pass'] else
+-                               ('fixed_auto_off' if s['auto_off'] else 'fixed_fallback') if c is None else
+-                               'adaptive_pass' if c['quality_pass'] else 'early_stop_fails')
+-            out[tag] = entry
+-            print(ds, role, tag, entry['status'], round(entry['fixed']['coverage'], 4),
+-                  None if c is None else (c['alpha'], round(c['coverage'], 4), round(100 * c['mean_loss'], 3),
+-                                          round(c['saving_pct'], 1)), flush=True)
+-        save(qdir(lib, ds) / f'{role}-result-k{k}.json', out)
++        save(qdir(lib, ds) / f'{role}-result-k{k}.json', held_out(ds, k, role, selection, results))
++
++
++def held_out(ds, k, role, selection, results):
++    """Per-point held-out verdicts from per-query results (validate; also used by check_results.py)."""
++    out = {}
++    for tag, s in selection.items():
++        ef, R, C = s['fixed_ef'], s['R'], s['C']
++        f_rec, f_dc, _ = results[alpha_name(ef, None)]
++        entry = dict(dataset=ds, k=k, R=R, C=C, fixed_ef=ef, queries=len(f_rec), auto_off=s['auto_off'],
++                     fixed=fixed_stats(f_rec, f_dc, R))
++        entry['fixed']['quality_pass'] = bool(entry['fixed']['coverage'] >= C)
++        for arm in ARMS:
++            a = arm_alpha(s, arm)
++            if a is None:
++                entry[arm] = None
++                continue
++            rec, dc, stops = results[alpha_name(ef, a)]
++            e = stats(f_rec, f_dc, rec, dc, stops, R)
++            e.update(alpha=a, quality_pass=bool(e['coverage'] >= C and e['mean_loss'] <= LOSS))
++            e['status'] = ('fixed_fails' if not entry['fixed']['quality_pass'] else
++                           'pass' if e['quality_pass'] else 'early_stop_fails')
++            entry[arm] = e
++        c = entry['rule_c']
++        entry['status'] = ('fixed_fails' if not entry['fixed']['quality_pass'] else
++                           ('fixed_auto_off' if s['auto_off'] else 'fixed_fallback') if c is None else
++                           'adaptive_pass' if c['quality_pass'] else 'early_stop_fails')
++        out[tag] = entry
++        print(ds, role, tag, entry['status'], round(entry['fixed']['coverage'], 4),
++              None if c is None else (c['alpha'], round(c['coverage'], 4), round(100 * c['mean_loss'], 3),
++                                      round(c['saving_pct'], 1)), flush=True)
++    return out
+ 
+ 
+ def validate_cm(ds, lib, role='validation'):
+@@ -508,13 +403,7 @@
+     for k in KS:
+         selection = read(qdir(lib, ds) / f'selection-k{k}.json')
+         base = load(qdir(lib, ds) / f'{role}-k{k}.json')
+-        chosen, modes = {}, {}
+-        for tag, s in selection.items():
+-            a = rule_cm(s['rule_c'], s['C'])
+-            chosen[tag] = dict(rule_c=s['rule_c'], margin=MARGIN[s['C']], alpha=a,
+-                               target=None if s['rule_c'] is None else 1 + (s['rule_c'] - 1) * (1 + MARGIN[s['C']]))
+-            if a is not None:
+-                modes[alpha_name(s['fixed_ef'], a)] = (params(s['fixed_ef'], a), s['fixed_ef'])
++        chosen, modes = cm_choice(selection)
+         save(qdir(lib, ds) / f'selection-cm-k{k}.json', chosen)
+         rows = run_modes(ds, role, k, modes, f'k{k}-{role}-cm', lib)
+         results = {name: summarize(truth, k, r) for name, r in rows.items()}
+@@ -522,24 +411,42 @@
+         repeated = sorted(n for n in results if n in base)
+         for n in repeated:
+             assert np.array_equal(results[n][0], base[n][0]) and np.array_equal(results[n][1], base[n][1]), (ds, k, n)
+-        out = {}
+-        for tag, s in selection.items():
+-            ef, R, C = s['fixed_ef'], s['R'], s['C']
+-            f_rec, f_dc, _ = base[alpha_name(ef, None)]
+-            a = chosen[tag]['alpha']
+-            if a is None:
+-                out[tag] = None
+-                continue
+-            rec, dc, stops = results[alpha_name(ef, a)]
+-            e = stats(f_rec, f_dc, rec, dc, stops, R)
+-            e.update(alpha=a, quality_pass=bool(e['coverage'] >= C and e['mean_loss'] <= LOSS))
+-            e['status'] = ('fixed_fails' if coverage(f_rec, R) < C else 'pass' if e['quality_pass'] else 'early_stop_fails')
+-            out[tag] = e
+-            print(ds, role, tag, 'C+m', a, e['status'], round(e['coverage'], 4), round(100 * e['mean_loss'], 3),
+-                  round(e['saving_pct'], 1), flush=True)
++        out = held_out_cm(ds, role, selection, chosen, base, results)
+         save(qdir(lib, ds) / f'{role}-cm-result-k{k}.json', dict(repeated_modes_identical=repeated, results=out))
+ 
+ 
++def cm_choice(selection):
++    """Rule C+m alpha per point and the search modes it needs (validate_cm; also used by check_results.py)."""
++    chosen, modes = {}, {}
++    for tag, s in selection.items():
++        a = rule_cm(s['rule_c'], s['C'])
++        chosen[tag] = dict(rule_c=s['rule_c'], margin=MARGIN[s['C']], alpha=a,
++                           target=None if s['rule_c'] is None else 1 + (s['rule_c'] - 1) * (1 + MARGIN[s['C']]))
++        if a is not None:
++            modes[alpha_name(s['fixed_ef'], a)] = (params(s['fixed_ef'], a), s['fixed_ef'])
++    return chosen, modes
++
++
++def held_out_cm(ds, role, selection, chosen, base, results):
++    """Held-out verdicts of the rule C+m alphas against the fixed results of the first held-out run."""
++    out = {}
++    for tag, s in selection.items():
++        ef, R, C = s['fixed_ef'], s['R'], s['C']
++        f_rec, f_dc, _ = base[alpha_name(ef, None)]
++        a = chosen[tag]['alpha']
++        if a is None:
++            out[tag] = None
++            continue
++        rec, dc, stops = results[alpha_name(ef, a)]
++        e = stats(f_rec, f_dc, rec, dc, stops, R)
++        e.update(alpha=a, quality_pass=bool(e['coverage'] >= C and e['mean_loss'] <= LOSS))
++        e['status'] = ('fixed_fails' if coverage(f_rec, R) < C else 'pass' if e['quality_pass'] else 'early_stop_fails')
++        out[tag] = e
++        print(ds, role, tag, 'C+m', a, e['status'], round(e['coverage'], 4), round(100 * e['mean_loss'], 3),
++              round(e['saving_pct'], 1), flush=True)
++    return out
++
++
+ def default_check(lib):
+     """Searches with early_stop but no alpha must resolve to the k-based default (1.5 at k=10, 1.15 at k=100) and
+     reproduce the explicit-alpha outputs byte for byte; where ef <= 1.25 k they must equal fixed search."""
+@@ -566,37 +473,6 @@
+     print('default check', len(rows), 'identical', len(rows) - len(bad))
+ 
+ 
+-def amend():
+-    """Record the rule C+m amendment in protocol.json (once), before its held-out run."""
+-    protocol = read(RUN / 'protocol.json')
+-    entry = dict(
+-        date='2026-10-22',
+-        made_after='the first held-out run of rules C, B, old and default (validate and fresh phases; REPORT.md of '
+-                   'that run)',
+-        reason='At C=0.99 the coverage side had no margin: on the calibration queries the fixed ef sits exactly at '
+-               'C_cal, so rule C picks the smallest alpha that happened to add zero calibration failures. DBpedia '
+-               'k100-r95 then added 7 held-out failures against a slack of 5.',
+-        rule='rule C+m: take the rule C alpha on the full calibration set, then use the smallest grid alpha >= '
+-             '1 + (alpha_C - 1) * (1 + m); m = 0.05 at C=0.90 and C=0.95, m = 0.25 at C=0.99. Points that are fixed or '
+-             'auto-off under rule C stay so.',
+-        margin_choice='Cross-validation on the calibration queries only (source/cv_margin.py; output '
+-                      'source/cv_margin.json and cv_margin.txt; earlier version source/cv_margin_v1.py): 300 random 2/3 '
+-                      'vs 1/3 splits of each point\'s calibration queries; rule C on the 2/3; margin m applied; checked on '
+-                      'the other third (fail = added failures above C_cal - C, or mean loss above 0.5 points). m = the '
+-                      'smallest margin whose mean failure probability over the tier\'s points is at most 2.5%: C=0.90 '
+-                      '3.9% at m=0 -> 0.8% at m=0.05; C=0.95 4.0% -> 0.8%; C=0.99 12.1% -> 2.1% at m=0.25 (3.9% at '
+-                      'm=0.20). Cohere k10-r95 at C=0.99 stays near 34% at any margin because a single calibration '
+-                      'query decides its boundary.',
+-        held_out_use='The held-out sets and the DBpedia fresh queries are looked at a second time for rule C+m. m was '
+-                     'fixed before this second look and is not changed after it.',
+-        margins={str(c): m for c, m in MARGIN.items()})
+-    amendments = protocol.setdefault('amendments', [])
+-    if not any(a.get('rule', '').startswith('rule C+m') for a in amendments):
+-        amendments.append(entry)
+-        save(RUN / 'protocol.json', protocol)
+-    print('amendments:', len(amendments))
+-
+-
+ def compare_libs(a, b):
+     """Byte-compare the per-query outputs (work, IDs, distances) of two libraries on every common mode."""
+     rows = []
+@@ -685,19 +561,39 @@
+     return plan
+ 
+ 
+-def timing(candidate, reference, quality_lib):
+-    """Not run on 2026-10-22. candidate/reference are library roles added with add-lib (rebased branch and upstream
+-    main at its base); quality_lib names the library whose selections define the timed points. Needs the timing lock
+-    (handoffs/TIMING_IN_PROGRESS) to exist, so it only runs on a machine that was declared quiet."""
+-    assert LOCK.exists(), f'create {LOCK} (start time, expected duration) on a quiet machine first'
+-    target = RUN / 'timing-results'
+-    target.mkdir(exist_ok=False)
++def library_record(role):
++    lib = CFG['libraries'][role]
++    record = dict(commit=lib['commit'], library=dict(path=str(lib['lib'] / 'libvsag.so.1.0.0'),
++                                                     sha256=digest(lib['lib'] / 'libvsag.so.1.0.0')))
++    record['helpers'] = {name: dict(sha256=digest(lib['helpers'] / name)) for name in ['multi_signature', 'timing']}
++    return record
++
++
++def timing_target():
++    return RUN / CFG['timing_output']
++
++
++def timing_summary_path():
++    """timing-results -> timing-summary.json, timing-results-v6 -> timing-summary-v6.json."""
++    return RUN / (CFG['timing_output'].replace('timing-results', 'timing-summary', 1) + '.json')
++
++
++def timing(candidate, reference, quality_lib, force=False):
++    """candidate/reference are library roles from config.toml (the PR build and upstream main at its base);
++    quality_lib names the library whose selections define the timed points. Refuses to start on a busy machine
++    (1-minute load average at or above [timing] max_load) unless forced."""
++    load1 = float(Path('/proc/loadavg').read_text().split()[0])
++    if load1 >= CFG['timing_max_load'] and not force:
++        raise SystemExit(f'load average {load1} is not quiet (limit {CFG["timing_max_load"]}); use --force to override')
++    target = timing_target()
++    target.mkdir(parents=True, exist_ok=False)
+     plan = timing_plan(quality_lib)
+     save(target / 'plan.json', {f'{ds}-k{k}': arms for (ds, k), arms in plan.items()})
+     save(target / 'environment.json', dict(candidate=candidate, reference=reference, quality_lib=quality_lib,
+-         libraries={role: read(RUN / 'libraries' / f'{role}.json') for role in [candidate, reference]},
+-         orders=TIMING_ORDERS, loadavg=Path('/proc/loadavg').read_text(), lock=LOCK.read_text(),
+-         processes=subprocess.check_output(['ps', '-eo', 'pid,comm,pcpu,pmem', '--sort=-pcpu'], text=True)))
++         libraries={role: library_record(role) for role in [candidate, reference]},
++         orders=TIMING_ORDERS, loadavg=Path('/proc/loadavg').read_text(),
++         cpu=next((line.split(':', 1)[1].strip() for line in Path('/proc/cpuinfo').read_text().splitlines()
++                   if line.startswith('model name')), None)))
+     rows = []
+     for (ds, k), arms in plan.items():
+         with h5py.File(DATASETS[ds]['validation'], 'r') as f:
+@@ -717,7 +613,7 @@
+                                                  for tag in arms[arm]))
+                     env = dict(os.environ, **TIMING_ENV)
+                     env['OMP_NUM_THREADS'] = str(threads)
+-                    env['LD_LIBRARY_PATH'] = str(library_dir(role)) + ':' + TIMING_ENV['LD_LIBRARY_PATH']
++                    env['LD_LIBRARY_PATH'] = str(library_dir(role))
+                     command = ['taskset', '-c', AFFINITY[threads], str(helper(role, 'timing')),
+                                str(DATASETS[ds]['index']), str(DATASETS[ds]['validation']), str(create_path(ds, k)),
+                                str(plan_file), str(dest), str(k), str(threads), '1', str(passes)]
+@@ -743,7 +639,7 @@
+ 
+ def timing_report():
+     """Medians of the four repeats per (point, threads, arm); each arm against ref, with and without noisy batches."""
+-    rows = read(RUN / 'timing-results/batches.json')
++    rows = read(timing_target() / 'batches.json')
+     cells = {}
+     for r in rows:
+         cells.setdefault((r['dataset'], r['point'], r['threads']), {}).setdefault(r['arm'], []).append(r)
+@@ -763,7 +659,7 @@
+                     clean_qps_pct=(100 * (float(np.median(clean[arm])) / float(np.median(clean['ref'])) - 1)
+                                    if min(len(v) for v in clean.values()) >= 2 else None))
+         out.append(item)
+-    save(RUN / 'timing-summary.json', dict(results=out, batches=len({(r['dataset'], r['threads'], r['outer_repeat'],
++    save(timing_summary_path(), dict(results=out, batches=len({(r['dataset'], r['threads'], r['outer_repeat'],
+                                                                        r['arm'], r['point'].split('-')[1]) for r in rows}),
+                                            noisy_rows=sum(r['noisy_background'] for r in rows), rows=len(rows)))
+     print('timing summary', len(out), 'cells')
+@@ -1021,15 +917,15 @@
+ 
+ if __name__ == '__main__':
+     args = sys.argv[1:]
+-    lib = 'v3'
++    lib = CFG['quality_library']
+     if args[:1] == ['--lib']:
+         lib, args = args[1], args[2:]
++    if not args:
++        raise SystemExit(__doc__)
++    force = '--force' in args
++    args = [a for a in args if a != '--force']
+     phase, names = args[0], args[1:]
+-    if phase == 'prepare':
+-        prepare()
+-    elif phase == 'add-lib':
+-        add_lib(*names)
+-    elif phase == 'alpha':
++    if phase == 'alpha':
+         for ds in names or list(DATASETS):
+             alpha(ds, lib)
+     elif phase == 'validate':
+@@ -1039,8 +935,6 @@
+         validate('dbpedia', lib, 'fresh')
+     elif phase == 'default-check':
+         default_check(lib)
+-    elif phase == 'amend':
+-        amend()
+     elif phase == 'validate-cm':
+         for ds in names or list(DATASETS):
+             validate_cm(ds, lib)
+@@ -1049,7 +943,8 @@
+     elif phase == 'compare-libs':
+         compare_libs(*names)
+     elif phase == 'timing':
+-        timing(names[0], names[1], lib)
++        candidate, reference = names if names else (CFG['timing_candidate'], CFG['timing_reference'])
++        timing(candidate, reference, lib, force)
+     elif phase == 'timing-report':
+         timing_report()
+     elif phase == 'report':

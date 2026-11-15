@@ -1,0 +1,12 @@
+{
+  "compared": 3443,
+  "identical": 3443,
+  "differing": 0,
+  "differing_auto_off_equal_fixed": 0,
+  "unexpected": 0,
+  "auto_off_alpha_modes": 281,
+  "auto_off_alpha_modes_identical": 281,
+  "note": "identical auto-off modes are ones where the rule never stopped a search in the first library either",
+  "unexpected_rows": [],
+  "differing_rows": []
+}

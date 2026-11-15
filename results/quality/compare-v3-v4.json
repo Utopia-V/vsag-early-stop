@@ -1,0 +1,629 @@
+{
+  "compared": 3335,
+  "identical": 3258,
+  "differing": 77,
+  "differing_auto_off_equal_fixed": 77,
+  "unexpected": 0,
+  "auto_off_alpha_modes": 281,
+  "auto_off_alpha_modes_identical": 204,
+  "note": "identical auto-off modes are ones where the rule never stopped a search in the first library either",
+  "unexpected_rows": [],
+  "differing_rows": [
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.00000.bin",
+      "identical": false,
+      "queries_differing": 1270,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.01000.bin",
+      "identical": false,
+      "queries_differing": 85,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.02000.bin",
+      "identical": false,
+      "queries_differing": 11,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.03000.bin",
+      "identical": false,
+      "queries_differing": 5,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.04000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.05000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.06000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.07000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.08000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.09000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.10000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "calibration/k100-alpha/out/ef108-a1.11000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "fresh/k100-fresh/out/ef108-a1.02000.bin",
+      "identical": false,
+      "queries_differing": 14,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "dbpedia",
+      "file": "validation/k100-validation/out/ef108-a1.02000.bin",
+      "identical": false,
+      "queries_differing": 13,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "cohere",
+      "file": "calibration/k100-alpha/out/ef100-a1.00000.bin",
+      "identical": false,
+      "queries_differing": 339,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "cohere",
+      "file": "calibration/k100-alpha/out/ef123-a1.00000.bin",
+      "identical": false,
+      "queries_differing": 398,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "cohere",
+      "file": "calibration/k100-alpha/out/ef123-a1.01000.bin",
+      "identical": false,
+      "queries_differing": 363,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "cohere",
+      "file": "calibration/k100-alpha/out/ef123-a1.02000.bin",
+      "identical": false,
+      "queries_differing": 102,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "cohere",
+      "file": "calibration/k100-alpha/out/ef123-a1.03000.bin",
+      "identical": false,
+      "queries_differing": 13,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "cohere",
+      "file": "calibration/k100-alpha/out/ef123-a1.04000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "cohere",
+      "file": "calibration/k100-alpha/out/ef123-a1.05000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "cohere",
+      "file": "calibration/k100-alpha/out/ef123-a1.06000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "cohere",
+      "file": "validation/k100-validation/out/ef123-a1.02000.bin",
+      "identical": false,
+      "queries_differing": 143,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.00000.bin",
+      "identical": false,
+      "queries_differing": 364,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.01000.bin",
+      "identical": false,
+      "queries_differing": 17,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.02000.bin",
+      "identical": false,
+      "queries_differing": 8,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.03000.bin",
+      "identical": false,
+      "queries_differing": 6,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.04000.bin",
+      "identical": false,
+      "queries_differing": 5,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.05000.bin",
+      "identical": false,
+      "queries_differing": 5,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.06000.bin",
+      "identical": false,
+      "queries_differing": 4,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.07000.bin",
+      "identical": false,
+      "queries_differing": 4,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.08000.bin",
+      "identical": false,
+      "queries_differing": 3,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.09000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.10000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.11000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.12000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.13000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.14000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.15000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.16000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.17000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.18000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef100-a1.19000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.00000.bin",
+      "identical": false,
+      "queries_differing": 395,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.01000.bin",
+      "identical": false,
+      "queries_differing": 260,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.02000.bin",
+      "identical": false,
+      "queries_differing": 73,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.03000.bin",
+      "identical": false,
+      "queries_differing": 25,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.04000.bin",
+      "identical": false,
+      "queries_differing": 15,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.05000.bin",
+      "identical": false,
+      "queries_differing": 11,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.06000.bin",
+      "identical": false,
+      "queries_differing": 8,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.07000.bin",
+      "identical": false,
+      "queries_differing": 6,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.08000.bin",
+      "identical": false,
+      "queries_differing": 4,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.09000.bin",
+      "identical": false,
+      "queries_differing": 4,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.10000.bin",
+      "identical": false,
+      "queries_differing": 4,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.11000.bin",
+      "identical": false,
+      "queries_differing": 4,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.12000.bin",
+      "identical": false,
+      "queries_differing": 4,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.13000.bin",
+      "identical": false,
+      "queries_differing": 4,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.14000.bin",
+      "identical": false,
+      "queries_differing": 3,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.15000.bin",
+      "identical": false,
+      "queries_differing": 3,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.16000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.17000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.18000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.19000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.20000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.21000.bin",
+      "identical": false,
+      "queries_differing": 2,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.22000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.22500.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.23000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.24000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.25000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.26000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.27000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.28000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.29000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "calibration/k100-alpha/out/ef114-a1.30000.bin",
+      "identical": false,
+      "queries_differing": 1,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "validation/k100-validation/out/ef100-a1.00000.bin",
+      "identical": false,
+      "queries_differing": 51,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    },
+    {
+      "dataset": "laion",
+      "file": "validation/k100-validation/out/ef114-a1.02000.bin",
+      "identical": false,
+      "queries_differing": 11,
+      "expected_auto_off": true,
+      "equals_fixed_in_v4": true
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "cohere",
+  "archive": {
+    "url": "https://storage.googleapis.com/ann-filtered-benchmark/datasets/cohere-wiki-1m.tgz",
+    "sha256": "4e4e128ade8a125e44dfc9bd41a38130a596a38e9bdc629a9caeaaeacf1eb432",
+    "bytes": 3075231865
+  },
+  "base": {
+    "sha256": "844529a07a6545adeed9c713ceb730a9e82edbb150a4f3d9f8377af22e3276ef",
+    "shape": [
+      999999,
+      768
+    ],
+    "dtype": "float32"
+  },
+  "queries": {
+    "sha256": "867e14c19dd23e452bbcf7b3ef6c914289d07f4bcdaba43bb17bf10f59041f4d"
+  },
+  "source_catalog": "https://github.com/qdrant/vector-db-benchmark/blob/master/datasets/datasets.json",
+  "source_query_rows": 999,
+  "role_query_rows": {
+    "calibration": 398,
+    "validation": 601
+  },
+  "weighting": "One representative row per distinct FP32 query content, equal weight; not the original duplicate request frequencies.",
+  "evidence_scope": "Frozen 2026-09-12 campaign query roles, already evaluated. Reusing these rows is reproduction, not a new independent holdout.",
+  "conversion": "Preserve source base row IDs and values; float16 is expanded to float32. Stored train/test are not normalized.",
+  "truth": "Exhaustive FP64 cosine over the actual FP32 inputs; depth 100, equal scores ordered by base row ID. Source JSONL ground truth is not used."
+}

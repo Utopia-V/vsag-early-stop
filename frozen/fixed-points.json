@@ -1,0 +1,542 @@
+[
+  {
+    "dataset": "cohere",
+    "k": 10,
+    "R": 0.8,
+    "C": 0.9,
+    "ef": 44,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k10.json",
+    "old_alpha": 1.15,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 10,
+    "R": 0.8,
+    "C": 0.95,
+    "ef": 64,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k10.json",
+    "old_alpha": 1.15,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 10,
+    "R": 0.8,
+    "C": 0.99,
+    "ef": 115,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.225,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 10,
+    "R": 0.9,
+    "C": 0.9,
+    "ef": 85,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k10.json",
+    "old_alpha": 1.225,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 10,
+    "R": 0.9,
+    "C": 0.95,
+    "ef": 113,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k10.json",
+    "old_alpha": 1.3,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 10,
+    "R": 0.9,
+    "C": 0.99,
+    "ef": 172,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.3,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 10,
+    "R": 0.95,
+    "C": 0.9,
+    "ef": 189,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k10.json",
+    "old_alpha": 1.5,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 10,
+    "R": 0.95,
+    "C": 0.95,
+    "ef": 531,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k10.json",
+    "old_alpha": 1.5,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 10,
+    "R": 0.95,
+    "C": 0.99,
+    "ef": 3118,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": null,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 100,
+    "R": 0.8,
+    "C": 0.9,
+    "ef": 100,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k100.json",
+    "old_alpha": 2.0,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 100,
+    "R": 0.8,
+    "C": 0.95,
+    "ef": 123,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k100.json",
+    "old_alpha": 1.02,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 100,
+    "R": 0.8,
+    "C": 0.99,
+    "ef": 159,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": null,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 100,
+    "R": 0.9,
+    "C": 0.9,
+    "ef": 216,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k100.json",
+    "old_alpha": 1.06,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 100,
+    "R": 0.9,
+    "C": 0.95,
+    "ef": 253,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k100.json",
+    "old_alpha": 1.06,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 100,
+    "R": 0.9,
+    "C": 0.99,
+    "ef": 381,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.08,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 100,
+    "R": 0.95,
+    "C": 0.9,
+    "ef": 338,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k100.json",
+    "old_alpha": 1.08,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 100,
+    "R": 0.95,
+    "C": 0.95,
+    "ef": 448,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/cohere/fixed-k100.json",
+    "old_alpha": 1.08,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "cohere",
+    "k": 100,
+    "R": 0.95,
+    "C": 0.99,
+    "ef": 814,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.15,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 10,
+    "R": 0.8,
+    "C": 0.9,
+    "ef": 51,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k10.json",
+    "old_alpha": 1.225,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 10,
+    "R": 0.8,
+    "C": 0.95,
+    "ef": 72,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k10.json",
+    "old_alpha": 1.225,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 10,
+    "R": 0.8,
+    "C": 0.99,
+    "ef": 153,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.225,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 10,
+    "R": 0.9,
+    "C": 0.9,
+    "ef": 83,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k10.json",
+    "old_alpha": 1.225,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 10,
+    "R": 0.9,
+    "C": 0.95,
+    "ef": 127,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k10.json",
+    "old_alpha": 1.3,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 10,
+    "R": 0.9,
+    "C": 0.99,
+    "ef": 291,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": null,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 10,
+    "R": 0.95,
+    "C": 0.9,
+    "ef": 236,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k10.json",
+    "old_alpha": 1.5,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 10,
+    "R": 0.95,
+    "C": 0.95,
+    "ef": 394,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k10.json",
+    "old_alpha": 1.5,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 10,
+    "R": 0.95,
+    "C": 0.99,
+    "ef": 1719,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.5,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 100,
+    "R": 0.8,
+    "C": 0.9,
+    "ef": 108,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k100.json",
+    "old_alpha": 1.02,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 100,
+    "R": 0.8,
+    "C": 0.95,
+    "ef": 137,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k100.json",
+    "old_alpha": 1.02,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 100,
+    "R": 0.8,
+    "C": 0.99,
+    "ef": 214,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.04,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 100,
+    "R": 0.9,
+    "C": 0.9,
+    "ef": 202,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k100.json",
+    "old_alpha": 1.04,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 100,
+    "R": 0.9,
+    "C": 0.95,
+    "ef": 261,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k100.json",
+    "old_alpha": 1.06,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 100,
+    "R": 0.9,
+    "C": 0.99,
+    "ef": 331,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.06,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 100,
+    "R": 0.95,
+    "C": 0.9,
+    "ef": 328,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k100.json",
+    "old_alpha": 1.08,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 100,
+    "R": 0.95,
+    "C": 0.95,
+    "ef": 408,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/dbpedia/fixed-k100.json",
+    "old_alpha": 1.08,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "dbpedia",
+    "k": 100,
+    "R": 0.95,
+    "C": 0.99,
+    "ef": 675,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.12,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "laion",
+    "k": 10,
+    "R": 0.8,
+    "C": 0.9,
+    "ef": 39,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k10.json",
+    "old_alpha": 1.12,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 10,
+    "R": 0.8,
+    "C": 0.95,
+    "ef": 60,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k10.json",
+    "old_alpha": 1.15,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 10,
+    "R": 0.8,
+    "C": 0.99,
+    "ef": 612,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.5,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "laion",
+    "k": 10,
+    "R": 0.9,
+    "C": 0.9,
+    "ef": 75,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k10.json",
+    "old_alpha": 1.2,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 10,
+    "R": 0.9,
+    "C": 0.95,
+    "ef": 156,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k10.json",
+    "old_alpha": 1.2,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 10,
+    "R": 0.9,
+    "C": 0.99,
+    "ef": 684,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.5,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "laion",
+    "k": 10,
+    "R": 0.95,
+    "C": 0.9,
+    "ef": 146,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k10.json",
+    "old_alpha": 1.3,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 10,
+    "R": 0.95,
+    "C": 0.95,
+    "ef": 265,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k10.json",
+    "old_alpha": 1.3,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 10,
+    "R": 0.95,
+    "C": 0.99,
+    "ef": 5999,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 2.0,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "laion",
+    "k": 100,
+    "R": 0.8,
+    "C": 0.9,
+    "ef": 100,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k100.json",
+    "old_alpha": 1.0,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 100,
+    "R": 0.8,
+    "C": 0.95,
+    "ef": 114,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k100.json",
+    "old_alpha": 1.02,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 100,
+    "R": 0.8,
+    "C": 0.99,
+    "ef": 500,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.15,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "laion",
+    "k": 100,
+    "R": 0.9,
+    "C": 0.9,
+    "ef": 157,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k100.json",
+    "old_alpha": 1.04,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 100,
+    "R": 0.9,
+    "C": 0.95,
+    "ef": 189,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k100.json",
+    "old_alpha": 1.04,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 100,
+    "R": 0.9,
+    "C": 0.99,
+    "ef": 676,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.15,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  },
+  {
+    "dataset": "laion",
+    "k": 100,
+    "R": 0.95,
+    "C": 0.9,
+    "ef": 247,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k100.json",
+    "old_alpha": 1.06,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 100,
+    "R": 0.95,
+    "C": 0.95,
+    "ef": 361,
+    "ef_source": "$BENCH/runs/early-stop-v3-coverage-c90-c95-20261013/quality/laion/fixed-k100.json",
+    "old_alpha": 1.08,
+    "old_rule": "2026-10-13 campaign (fewest distance computations, coverage >= C_cal, loss <= 0.5 pt)"
+  },
+  {
+    "dataset": "laion",
+    "k": 100,
+    "R": 0.95,
+    "C": 0.99,
+    "ef": 2283,
+    "ef_source": "$BENCH/runs/final-validation-20260912/protocol.json",
+    "old_alpha": 1.31875,
+    "old_rule": "September freeze (quality_at_target_speed, final-development-20260911)"
+  }
+]

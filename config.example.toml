@@ -1,0 +1,51 @@
+# 复现包配置。复制为 config.toml 后按机器修改；脚本优先读 config.toml，其次读本文件。
+# 相对路径以本文件所在目录为基准。
+
+[paths]
+# 下载、输入、索引、构建和运行结果都放在 work 下，共需约 60 GB。
+work = "work"
+# 也可以把其中某一项单独放到别处，例如：
+# data = "/data/ann/qdrant"
+# indexes = "/fast-disk/indexes"
+
+[libraries]
+# 质量阶段用哪个库；计时阶段的候选库和参照库。
+quality = "pr"
+timing_candidate = "pr"
+timing_reference = "upstream"
+
+[libraries.pr]
+# PR #3149 开启时的 head。源码、构建目录和辅助程序默认在 work/builds/pr 下。
+commit = "abe7fcf4cb0485d22069559221d19a582ad167e7"
+
+[libraries.upstream]
+# PR 所基于的上游 main。
+commit = "7ea909b3d364296b14be1cf46e72cf4bd98b3613"
+
+[selection]
+# 每个 (数据集, k, R, C) 的固定 ef_search。默认用交付时冻结的值；
+# 重建索引后应先运行 calibrate_ef.py，再改成 "work/run/fixed-points.json"。
+fixed_points = "frozen/fixed-points.json"
+# rule C+m 的余量 m，按覆盖率档位 C 取值。
+margins = { "0.90" = 0.05, "0.95" = 0.05, "0.99" = 0.25 }
+
+[quality]
+# 质量阶段把搜索配置分给若干单线程进程，每个进程绑定一个 CPU。
+cpus = [0, 1, 2, 3, 4, 5, 6, 7, 16, 17, 18, 19, 20, 21, 22, 23]
+processes = { dbpedia = 5, cohere = 6, laion = 6 }
+
+[timing]
+threads = [1, 8]
+# 线程数到 CPU 列表的绑定（taskset 格式）。
+affinity = { "1" = "8", "8" = "8-15" }
+output = "timing-results"
+# 开始计时前要求 1 分钟平均负载低于该值。
+max_load = 2.0
+
+[index]
+# 建索引进程绑定的 CPU；HGraph 内部用 12 个构建线程。
+cpus = "0-11"
+
+# 指向已有文件时可逐项覆盖，例如使用原始索引：
+# [datasets.dbpedia]
+# index = "/path/to/dbpedia/hgraph.index"

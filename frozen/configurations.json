@@ -1,0 +1,1281 @@
+{
+ "description": "Delivered configuration per point: fixed ef_search (the fixed baseline) and the early-stop alpha chosen by rule C+m (null where ef_search <= 1.25 k, where the PR skips early stop). search_parameters is the HGraph search JSON of the early-stop configuration; the baseline is the same JSON without early_stop. held_out_pass: fixed reaches C on the held-out queries and early stop reaches C with mean recall loss <= 0.5 points.",
+ "points": [
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "dbpedia",
+   "point": "c90-k10-r80",
+   "k": 10,
+   "R": 0.8,
+   "ef_search": 51,
+   "auto_off": false,
+   "rule_c_alpha": 1.22,
+   "margin": 0.05,
+   "alpha": 1.24,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 51,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.24
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "dbpedia",
+   "point": "c90-k10-r90",
+   "k": 10,
+   "R": 0.9,
+   "ef_search": 83,
+   "auto_off": false,
+   "rule_c_alpha": 1.22,
+   "margin": 0.05,
+   "alpha": 1.24,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 83,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.24
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "dbpedia",
+   "point": "c90-k10-r95",
+   "k": 10,
+   "R": 0.95,
+   "ef_search": 236,
+   "auto_off": false,
+   "rule_c_alpha": 1.38,
+   "margin": 0.05,
+   "alpha": 1.4,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 236,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.4
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "dbpedia",
+   "point": "c90-k100-r80",
+   "k": 100,
+   "R": 0.8,
+   "ef_search": 108,
+   "auto_off": true,
+   "rule_c_alpha": null,
+   "margin": 0.05,
+   "alpha": null,
+   "default_alpha": null,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 108
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "dbpedia",
+   "point": "c90-k100-r90",
+   "k": 100,
+   "R": 0.9,
+   "ef_search": 202,
+   "auto_off": false,
+   "rule_c_alpha": 1.04,
+   "margin": 0.05,
+   "alpha": 1.05,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 202,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.05
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "dbpedia",
+   "point": "c90-k100-r95",
+   "k": 100,
+   "R": 0.95,
+   "ef_search": 328,
+   "auto_off": false,
+   "rule_c_alpha": 1.07,
+   "margin": 0.05,
+   "alpha": 1.08,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 328,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.08
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "cohere",
+   "point": "c90-k10-r80",
+   "k": 10,
+   "R": 0.8,
+   "ef_search": 44,
+   "auto_off": false,
+   "rule_c_alpha": 1.14,
+   "margin": 0.05,
+   "alpha": 1.15,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 44,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.15
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "cohere",
+   "point": "c90-k10-r90",
+   "k": 10,
+   "R": 0.9,
+   "ef_search": 85,
+   "auto_off": false,
+   "rule_c_alpha": 1.225,
+   "margin": 0.05,
+   "alpha": 1.24,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 85,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.24
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "cohere",
+   "point": "c90-k10-r95",
+   "k": 10,
+   "R": 0.95,
+   "ef_search": 189,
+   "auto_off": false,
+   "rule_c_alpha": 1.36,
+   "margin": 0.05,
+   "alpha": 1.38,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 189,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.38
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "cohere",
+   "point": "c90-k100-r80",
+   "k": 100,
+   "R": 0.8,
+   "ef_search": 100,
+   "auto_off": true,
+   "rule_c_alpha": null,
+   "margin": 0.05,
+   "alpha": null,
+   "default_alpha": null,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 100
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "cohere",
+   "point": "c90-k100-r90",
+   "k": 100,
+   "R": 0.9,
+   "ef_search": 216,
+   "auto_off": false,
+   "rule_c_alpha": 1.05,
+   "margin": 0.05,
+   "alpha": 1.06,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 216,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.06
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "cohere",
+   "point": "c90-k100-r95",
+   "k": 100,
+   "R": 0.95,
+   "ef_search": 338,
+   "auto_off": false,
+   "rule_c_alpha": 1.08,
+   "margin": 0.05,
+   "alpha": 1.09,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 338,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.09
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "laion",
+   "point": "c90-k10-r80",
+   "k": 10,
+   "R": 0.8,
+   "ef_search": 39,
+   "auto_off": false,
+   "rule_c_alpha": 1.12,
+   "margin": 0.05,
+   "alpha": 1.13,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 39,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.13
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "laion",
+   "point": "c90-k10-r90",
+   "k": 10,
+   "R": 0.9,
+   "ef_search": 75,
+   "auto_off": false,
+   "rule_c_alpha": 1.17,
+   "margin": 0.05,
+   "alpha": 1.18,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 75,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.18
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "laion",
+   "point": "c90-k10-r95",
+   "k": 10,
+   "R": 0.95,
+   "ef_search": 146,
+   "auto_off": false,
+   "rule_c_alpha": 1.28,
+   "margin": 0.05,
+   "alpha": 1.3,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 146,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.3
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "laion",
+   "point": "c90-k100-r80",
+   "k": 100,
+   "R": 0.8,
+   "ef_search": 100,
+   "auto_off": true,
+   "rule_c_alpha": null,
+   "margin": 0.05,
+   "alpha": null,
+   "default_alpha": null,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 100
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "laion",
+   "point": "c90-k100-r90",
+   "k": 100,
+   "R": 0.9,
+   "ef_search": 157,
+   "auto_off": false,
+   "rule_c_alpha": 1.03,
+   "margin": 0.05,
+   "alpha": 1.04,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 157,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.04
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.9,
+   "C_cal": 0.95,
+   "dataset": "laion",
+   "point": "c90-k100-r95",
+   "k": 100,
+   "R": 0.95,
+   "ef_search": 247,
+   "auto_off": false,
+   "rule_c_alpha": 1.06,
+   "margin": 0.05,
+   "alpha": 1.07,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 247,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.07
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "dbpedia",
+   "point": "c95-k10-r80",
+   "k": 10,
+   "R": 0.8,
+   "ef_search": 72,
+   "auto_off": false,
+   "rule_c_alpha": 1.22,
+   "margin": 0.05,
+   "alpha": 1.24,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 72,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.24
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "dbpedia",
+   "point": "c95-k10-r90",
+   "k": 10,
+   "R": 0.9,
+   "ef_search": 127,
+   "auto_off": false,
+   "rule_c_alpha": 1.25,
+   "margin": 0.05,
+   "alpha": 1.27,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 127,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.27
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "dbpedia",
+   "point": "c95-k10-r95",
+   "k": 10,
+   "R": 0.95,
+   "ef_search": 394,
+   "auto_off": false,
+   "rule_c_alpha": 1.38,
+   "margin": 0.05,
+   "alpha": 1.4,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 394,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.4
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "dbpedia",
+   "point": "c95-k100-r80",
+   "k": 100,
+   "R": 0.8,
+   "ef_search": 137,
+   "auto_off": false,
+   "rule_c_alpha": 1.02,
+   "margin": 0.05,
+   "alpha": 1.03,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 137,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.03
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "dbpedia",
+   "point": "c95-k100-r90",
+   "k": 100,
+   "R": 0.9,
+   "ef_search": 261,
+   "auto_off": false,
+   "rule_c_alpha": 1.05,
+   "margin": 0.05,
+   "alpha": 1.06,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 261,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.06
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "dbpedia",
+   "point": "c95-k100-r95",
+   "k": 100,
+   "R": 0.95,
+   "ef_search": 408,
+   "auto_off": false,
+   "rule_c_alpha": 1.08,
+   "margin": 0.05,
+   "alpha": 1.09,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 408,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.09
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "cohere",
+   "point": "c95-k10-r80",
+   "k": 10,
+   "R": 0.8,
+   "ef_search": 64,
+   "auto_off": false,
+   "rule_c_alpha": 1.17,
+   "margin": 0.05,
+   "alpha": 1.18,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 64,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.18
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "cohere",
+   "point": "c95-k10-r90",
+   "k": 10,
+   "R": 0.9,
+   "ef_search": 113,
+   "auto_off": false,
+   "rule_c_alpha": 1.26,
+   "margin": 0.05,
+   "alpha": 1.28,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 113,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.28
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "cohere",
+   "point": "c95-k10-r95",
+   "k": 10,
+   "R": 0.95,
+   "ef_search": 531,
+   "auto_off": false,
+   "rule_c_alpha": 1.4,
+   "margin": 0.05,
+   "alpha": 1.42,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 531,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.42
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "cohere",
+   "point": "c95-k100-r80",
+   "k": 100,
+   "R": 0.8,
+   "ef_search": 123,
+   "auto_off": true,
+   "rule_c_alpha": null,
+   "margin": 0.05,
+   "alpha": null,
+   "default_alpha": null,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 123
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "cohere",
+   "point": "c95-k100-r90",
+   "k": 100,
+   "R": 0.9,
+   "ef_search": 253,
+   "auto_off": false,
+   "rule_c_alpha": 1.06,
+   "margin": 0.05,
+   "alpha": 1.07,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 253,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.07
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "cohere",
+   "point": "c95-k100-r95",
+   "k": 100,
+   "R": 0.95,
+   "ef_search": 448,
+   "auto_off": false,
+   "rule_c_alpha": 1.08,
+   "margin": 0.05,
+   "alpha": 1.09,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 448,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.09
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "laion",
+   "point": "c95-k10-r80",
+   "k": 10,
+   "R": 0.8,
+   "ef_search": 60,
+   "auto_off": false,
+   "rule_c_alpha": 1.14,
+   "margin": 0.05,
+   "alpha": 1.15,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 60,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.15
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "laion",
+   "point": "c95-k10-r90",
+   "k": 10,
+   "R": 0.9,
+   "ef_search": 156,
+   "auto_off": false,
+   "rule_c_alpha": 1.17,
+   "margin": 0.05,
+   "alpha": 1.18,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 156,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.18
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "laion",
+   "point": "c95-k10-r95",
+   "k": 10,
+   "R": 0.95,
+   "ef_search": 265,
+   "auto_off": false,
+   "rule_c_alpha": 1.28,
+   "margin": 0.05,
+   "alpha": 1.3,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 265,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.3
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "laion",
+   "point": "c95-k100-r80",
+   "k": 100,
+   "R": 0.8,
+   "ef_search": 114,
+   "auto_off": true,
+   "rule_c_alpha": null,
+   "margin": 0.05,
+   "alpha": null,
+   "default_alpha": null,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 114
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "laion",
+   "point": "c95-k100-r90",
+   "k": 100,
+   "R": 0.9,
+   "ef_search": 189,
+   "auto_off": false,
+   "rule_c_alpha": 1.04,
+   "margin": 0.05,
+   "alpha": 1.05,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 189,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.05
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.95,
+   "C_cal": 0.975,
+   "dataset": "laion",
+   "point": "c95-k100-r95",
+   "k": 100,
+   "R": 0.95,
+   "ef_search": 361,
+   "auto_off": false,
+   "rule_c_alpha": 1.07,
+   "margin": 0.05,
+   "alpha": 1.08,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 361,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.08
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "dbpedia",
+   "point": "c99-k10-r80",
+   "k": 10,
+   "R": 0.8,
+   "ef_search": 153,
+   "auto_off": false,
+   "rule_c_alpha": 1.22,
+   "margin": 0.25,
+   "alpha": 1.28,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 153,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.28
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "dbpedia",
+   "point": "c99-k10-r90",
+   "k": 10,
+   "R": 0.9,
+   "ef_search": 291,
+   "auto_off": false,
+   "rule_c_alpha": 1.31875,
+   "margin": 0.25,
+   "alpha": 1.4,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 291,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.4
+     }
+    }
+   },
+   "held_out_pass": false
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "dbpedia",
+   "point": "c99-k10-r95",
+   "k": 10,
+   "R": 0.95,
+   "ef_search": 1719,
+   "auto_off": false,
+   "rule_c_alpha": 1.42,
+   "margin": 0.25,
+   "alpha": 1.54,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 1719,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.54
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "dbpedia",
+   "point": "c99-k100-r80",
+   "k": 100,
+   "R": 0.8,
+   "ef_search": 214,
+   "auto_off": false,
+   "rule_c_alpha": 1.04,
+   "margin": 0.25,
+   "alpha": 1.05,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 214,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.05
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "dbpedia",
+   "point": "c99-k100-r90",
+   "k": 100,
+   "R": 0.9,
+   "ef_search": 331,
+   "auto_off": false,
+   "rule_c_alpha": 1.06,
+   "margin": 0.25,
+   "alpha": 1.08,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 331,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.08
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "dbpedia",
+   "point": "c99-k100-r95",
+   "k": 100,
+   "R": 0.95,
+   "ef_search": 675,
+   "auto_off": false,
+   "rule_c_alpha": 1.08,
+   "margin": 0.25,
+   "alpha": 1.1,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 675,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.1
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "cohere",
+   "point": "c99-k10-r80",
+   "k": 10,
+   "R": 0.8,
+   "ef_search": 115,
+   "auto_off": false,
+   "rule_c_alpha": 1.21,
+   "margin": 0.25,
+   "alpha": 1.27,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 115,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.27
+     }
+    }
+   },
+   "held_out_pass": false
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "cohere",
+   "point": "c99-k10-r90",
+   "k": 10,
+   "R": 0.9,
+   "ef_search": 172,
+   "auto_off": false,
+   "rule_c_alpha": 1.26,
+   "margin": 0.25,
+   "alpha": 1.34,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 172,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.34
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "cohere",
+   "point": "c99-k10-r95",
+   "k": 10,
+   "R": 0.95,
+   "ef_search": 3118,
+   "auto_off": false,
+   "rule_c_alpha": 1.65,
+   "margin": 0.25,
+   "alpha": 1.85,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 3118,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.85
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "cohere",
+   "point": "c99-k100-r80",
+   "k": 100,
+   "R": 0.8,
+   "ef_search": 159,
+   "auto_off": false,
+   "rule_c_alpha": 1.03,
+   "margin": 0.25,
+   "alpha": 1.04,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 159,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.04
+     }
+    }
+   },
+   "held_out_pass": false
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "cohere",
+   "point": "c99-k100-r90",
+   "k": 100,
+   "R": 0.9,
+   "ef_search": 381,
+   "auto_off": false,
+   "rule_c_alpha": 1.08,
+   "margin": 0.25,
+   "alpha": 1.1,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 381,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.1
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "cohere",
+   "point": "c99-k100-r95",
+   "k": 100,
+   "R": 0.95,
+   "ef_search": 814,
+   "auto_off": false,
+   "rule_c_alpha": 1.1,
+   "margin": 0.25,
+   "alpha": 1.13,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 814,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.13
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "laion",
+   "point": "c99-k10-r80",
+   "k": 10,
+   "R": 0.8,
+   "ef_search": 612,
+   "auto_off": false,
+   "rule_c_alpha": 1.18,
+   "margin": 0.25,
+   "alpha": 1.225,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 612,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.225
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "laion",
+   "point": "c99-k10-r90",
+   "k": 10,
+   "R": 0.9,
+   "ef_search": 684,
+   "auto_off": false,
+   "rule_c_alpha": 1.21,
+   "margin": 0.25,
+   "alpha": 1.27,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 684,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.27
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "laion",
+   "point": "c99-k10-r95",
+   "k": 10,
+   "R": 0.95,
+   "ef_search": 5999,
+   "auto_off": false,
+   "rule_c_alpha": 1.3,
+   "margin": 0.25,
+   "alpha": 1.38,
+   "default_alpha": 1.5,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 5999,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.38
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "laion",
+   "point": "c99-k100-r80",
+   "k": 100,
+   "R": 0.8,
+   "ef_search": 500,
+   "auto_off": false,
+   "rule_c_alpha": 1.07,
+   "margin": 0.25,
+   "alpha": 1.09,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 500,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.09
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "laion",
+   "point": "c99-k100-r90",
+   "k": 100,
+   "R": 0.9,
+   "ef_search": 676,
+   "auto_off": false,
+   "rule_c_alpha": 1.08,
+   "margin": 0.25,
+   "alpha": 1.1,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 676,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.1
+     }
+    }
+   },
+   "held_out_pass": true
+  },
+  {
+   "C": 0.99,
+   "C_cal": 0.995,
+   "dataset": "laion",
+   "point": "c99-k100-r95",
+   "k": 100,
+   "R": 0.95,
+   "ef_search": 2283,
+   "auto_off": false,
+   "rule_c_alpha": 1.12,
+   "margin": 0.25,
+   "alpha": 1.15,
+   "default_alpha": 1.15,
+   "search_parameters": {
+    "hgraph": {
+     "ef_search": 2283,
+     "early_stop": {
+      "type": "distance",
+      "alpha": 1.15
+     }
+    }
+   },
+   "held_out_pass": true
+  }
+ ]
+}
