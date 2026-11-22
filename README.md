@@ -170,3 +170,7 @@ sha256sum -c --ignore-missing SHA256SUMS
 ```
 
 HDF5 输入重新生成后文件字节会不同，应比较数组哈希（`checksums/input-arrays.json`，第 3 步会自动比较）。
+
+## 许可
+
+本仓库以 Apache License 2.0 发布，见 `LICENSE`，与 VSAG 相同。`vsag-patches/` 中的差异来自 VSAG 的源码，适用同一许可。

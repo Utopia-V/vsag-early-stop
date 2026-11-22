@@ -39,3 +39,7 @@ uv run scripts/make_report_assets.py --timing work/run/timing-results --summary 
 ```
 
 A rebuilt index is a different graph, so the fixed ef values, alphas and savings will move slightly; exact agreement needs the original index files, whose SHA256 are in `SHA256SUMS`. `smoke/run_smoke.py` runs the whole pipeline after the download on small synthetic data in about five minutes.
+
+## License
+
+Apache License 2.0, the same as VSAG; see `LICENSE`. The diff in `vsag-patches/` is derived from VSAG source and is under the same license.
