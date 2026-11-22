@@ -1,5 +1,5 @@
 [project]
-name = "vsag-hgraph-early-stop-repro"
+name = "vsag-early-stop"
 version = "1.0.0"
 description = "Reproduction package for the HGraph distance early stop experiments (OSPP 2026, antgroup/vsag#3149)"
 requires-python = ">=3.12,<3.13"

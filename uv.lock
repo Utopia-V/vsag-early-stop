@@ -215,7 +215,7 @@ wheels = [
 ]
 
 [[package]]
-name = "vsag-hgraph-early-stop-repro"
+name = "vsag-early-stop"
 version = "1.0.0"
 source = { virtual = "." }
 dependencies = [
