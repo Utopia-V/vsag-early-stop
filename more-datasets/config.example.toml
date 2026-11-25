@@ -1,0 +1,133 @@
+# Configuration of the ten-dataset measurement (2026-11-24/25). Copy to more-datasets/config.toml and edit paths and
+# CPUs for the machine; the scripts read config.toml first, then this file. Relative paths are taken relative to the
+# directory of this file. The defaults share work/ with the first measurement (README.en.md, "Rerun").
+
+[paths]
+# Downloads of the seven new datasets (download.py) and the first measurement's data.
+data = "../work/data"
+# HDF5 inputs and HGraph indexes: work/inputs/<dataset>, work/indexes/<dataset> (the three original datasets keep the
+# ones made by scripts/prepare_inputs.py and scripts/build_indexes.py).
+inputs = "../work/inputs"
+indexes = "../work/indexes"
+# Source trees, builds and helpers of the two libraries of this measurement (build_vsag.py).
+builds = "../work/builds/more-datasets"
+# Run outputs: c99/, lvl/, l95/, fixed-ef/, gap/, orig/, freeef/, mean-recall/, and the tables.
+work = "../work/more-datasets"
+tables = "../work/more-datasets/tables"
+
+[libraries]
+quality = "pr"
+timing_candidate = "pr"
+timing_reference = "ref"
+
+[libraries.pr]
+# PR #3149 head at the time of this measurement, on upstream main 4a9c99ba.
+commit = "b98e87abdd192ef5b3426a1fddc0266fcac73f93"
+
+[libraries.ref]
+# Upstream main 4a9c99ba, the base of b98e87ab.
+commit = "4a9c99bae6e7abfc98095f3918745b863a179381"
+
+[selection]
+fixed_points = "../work/more-datasets/fixed-ef/fixed-points.json"
+# Margins of rule C+m, transferred unchanged from the first measurement (used only at the 99.5% level, tier 0.99).
+margins = { "0.90" = 0.05, "0.95" = 0.05, "0.99" = 0.25 }
+
+[quality]
+# Quality processes never share the timing CPUs 8-15 with a timing batch: run quality and timing stages one at a time.
+cpus = "0-7,16-31"
+
+[timing]
+threads = [1, 8]
+affinity = { "1" = "8", "8" = "8-15" }
+max_load = 2.0
+
+[index]
+cpus = "0-7,16-19"
+# As frozen/index/*.json of the first measurement, without LAION's support_duplicate (the new datasets are built
+# without it).
+param = { base_quantization_type = "fp32", max_degree = 32, ef_construction = 500, use_reorder = false, build_thread_count = 12 }
+
+# The seven new datasets. "source" is relative to [paths] data (download.py writes it there); "processes" is the
+# number of single-threaded search processes of the quality phases (memory: each loads the index).
+[datasets.gist]
+label = "GIST-960 (l2)"
+dim = 960
+metric = "l2"
+source = "gist-960-euclidean.hdf5"
+processes = 4
+
+[datasets.sift]
+label = "SIFT-128 (l2)"
+dim = 128
+metric = "l2"
+source = "sift-128-euclidean.hdf5"
+processes = 16
+
+[datasets.glove]
+label = "GloVe-100 (cosine)"
+dim = 100
+metric = "cosine"
+source = "glove-100-angular.hdf5"
+processes = 16
+
+[datasets.deep]
+label = "Deep-96, first 1M (cosine)"
+dim = 96
+metric = "cosine"
+source = "deep-image-96-angular.hdf5"
+base_rows = 1000000
+processes = 6
+
+[datasets."coco-i2i"]
+label = "COCO image-to-image 512 (cosine), FP16 source"
+dim = 512
+metric = "cosine"
+source = "coco-i2i-512-angular.hdf5"
+processes = 12
+
+[datasets."coco-t2i"]
+label = "COCO text-to-image 512 (cosine), FP16 source; text queries against image vectors"
+dim = 512
+metric = "cosine"
+source = "coco-t2i-512-angular.hdf5"
+processes = 12
+
+[datasets."wiki-all"]
+label = "Wiki-all 1M 768 (l2, the metric of the cuVS bench dataset config)"
+dim = 768
+metric = "l2"
+source = "wiki_all_1M/base.1M.fbin"
+queries = "wiki_all_1M/queries.fbin"
+processes = 6
+
+# The three datasets of the first measurement: its indexes, create parameters and query splits (not rebuilt here).
+[datasets.dbpedia]
+label = "DBpedia-OpenAI 975k (cosine), original index"
+dim = 1536
+metric = "cosine"
+processes = 3
+index = "../work/indexes/dbpedia/hgraph.index"
+create = "../frozen/index/dbpedia.json"
+calibration = "../work/inputs/dbpedia/calibration.hdf5"
+validation = "../work/inputs/dbpedia/validation.hdf5"
+
+[datasets.cohere]
+label = "Cohere 1M (cosine), original index"
+dim = 768
+metric = "cosine"
+processes = 6
+index = "../work/indexes/cohere/hgraph.index"
+create = "../frozen/index/cohere.json"
+calibration = "../work/inputs/cohere/calibration.hdf5"
+validation = "../work/inputs/cohere/validation.hdf5"
+
+[datasets.laion]
+label = "LAION 1M (cosine), original index"
+dim = 512
+metric = "cosine"
+processes = 6
+index = "../work/indexes/laion/hgraph.index"
+create = "../frozen/index/laion.json"
+calibration = "../work/inputs/laion/calibration.hdf5"
+validation = "../work/inputs/laion/validation.hdf5"

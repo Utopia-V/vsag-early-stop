@@ -1,0 +1,83 @@
+--- original/headline.py
++++ more-datasets/scripts/headline.py
+@@ -1,20 +1,25 @@
+ #!/usr/bin/env python3
+-"""Headline tables: rule C (no margin) at the fixed ef against the reference library, per calibration tier.
++"""Headline tables: rule C (no margin) at the fixed ef against the reference library, per calibration level.
+ 
+-usage: headline.py            -> tables/headline.md, tables/headline.json
++usage: headline.py            -> TABLES/headline.md, TABLES/headline.json
+ 
+-Tiers: 0.99 (C_cal 0.995: fixed ef calibrated so that 99.5% of the calibration queries reach R; at least 99% required
+-on held-out queries by the package's check), 0.98 (C_cal 0.99: literal level 0.99), 0.90 (C_cal 0.95: literal level
+-0.95), 0.80 (C_cal 0.90: literal level 0.90).
++Calibration level = the share of calibration queries that must reach R at the fixed ef. Levels and the scripts'
++internal tier numbers (kept as keys of headline.json and in the field "tier"): 99.5% = tier 0.99 (the first
++measurement's tier labelled "C = 0.99"; its check-set gate was 99% of held-out queries), 99% = tier 0.98, 95% = tier
++0.90, 90% = tier 0.80. Every row carries calibration_coverage_target and check_coverage_target (0.99 at the 99.5%
++level, null at the others, which have no check-set gate).
+ Per (dataset, k, R): queries reaching R for fixed and early stop on the calibration and the held-out queries (raw
+ counts / n), mean recall loss on the held-out queries, distance computations saved, absolute QPS and mean latency of
+ both arms and the changes of QPS, mean latency and P99 at 1 and 8 threads (scripts/timing_clean.py: medians over
+-accepted batches only, accepted-batch counts shown). Only tier 0.99 carries the package's held-out check (fixed and
+-early stop both reach C = 0.99, loss <= 0.5 pt); the literal levels show counts without a verdict.
++accepted batches only, accepted-batch counts shown). Only the 99.5% level carries the first measurement's held-out
++check (fixed and early stop both reach R on >= 99% of the held-out queries, loss <= 0.5 pt); the other levels show
++counts without a verdict.
+ "Meets" = mean recall loss <= 0.5 points and at least one of: QPS +10% at 1 or 8 threads, mean latency -10% at 1 or 8
+ threads, P99 -10% at 1 or 8 threads (the metrics that do it are listed).
+-dbpedia/cohere/laion: held-out and calibration quality from the package record (summary-v4.json) at tiers 0.99 and
+-0.90, timing from this run on the current libraries; at tier 0.99 also the September-freeze alphas ("Sept.").
++dbpedia/cohere/laion: held-out and calibration quality from the first measurement's record (summary-v4.json) at the
++99.5% and 95% levels, timing from this run on the current libraries; at 99.5% also the September-freeze alphas
++("Sept."). Rows of the 95% and 90% levels whose rule C saves less than 8% of the distance computations were not timed;
++so were those of the 99% level.
+ """
+ import json
+ import math
+@@ -24,14 +29,16 @@
+ import recalibrate as r
+ import timing_clean as tc
+ 
+-WORK = config.RUNDIR / 'work'
+-OUT = config.RUNDIR / 'tables'
++WORK = config.WORK
++OUT = config.TABLES
+ ORDER = ['coco-i2i', 'coco-t2i', 'wiki-all', 'dbpedia', 'cohere', 'laion', 'sift', 'deep', 'glove', 't2i', 'gist']
+ ORIGINAL = ('dbpedia', 'cohere', 'laion')
+-TIERS = [(0.99, 'Tier 0.99 (C_cal 0.995): fixed ef calibrated so that 99.5% of calibration queries reach R'),
+-         (0.98, 'Literal level 0.99 (tier 0.98, C_cal 0.99)'),
+-         (0.90, 'Literal level 0.95 (tier 0.90, C_cal 0.95)'),
+-         (0.80, 'Literal level 0.90 (tier 0.80, C_cal 0.90)')]
++TIERS = [(0.99, 'Fixed ef calibrated at 99.5% (check-set gate 99%; the tier labelled "C = 0.99" until 2026-11-25)'),
++         (0.98, 'Fixed ef calibrated at 99%'),
++         (0.90, 'Fixed ef calibrated at 95%'),
++         (0.80, 'Fixed ef calibrated at 90%')]
++# calibration_coverage_target per tier is recalibrate.CS; the check-set gate exists only at the 99.5% level.
++CHECK = {0.99: 0.99}
+ RUN_OF = {0.99: 'c99', 0.98: 'lvl', 0.80: 'lvl', 0.90: 'l95'}
+ 
+ 
+@@ -102,7 +109,8 @@
+         arms = [('rule C', 'rule_c', 'rulec')] + ([('Sept.', 'old', 'sept')] if ds in ORIGINAL and C == 0.99 else [])
+         for label, key, arm in arms:
+             e = h.get(key)
+-            row = dict(dataset=ds, tier=C, C_cal=r.CS[C], k=p['k'], R=p['R'], fixed_ef=p['fixed_ef'], alpha_rule=label,
++            row = dict(dataset=ds, tier=C, C_cal=r.CS[C], calibration_coverage_target=r.CS[C],
++                       check_coverage_target=CHECK.get(C), k=p['k'], R=p['R'], fixed_ef=p['fixed_ef'], alpha_rule=label,
+                        auto_off=p['auto_off'], n_cal=ncal, n_held=h['queries'], cal_fixed=cal['fixed'],
+                        held_fixed=h['fixed']['reached'], alpha=None if e is None else e['alpha'])
+             if e is not None:
+@@ -164,8 +172,10 @@
+     lines = ['# Rule C (no margin) at the fixed ef against the reference library', '',
+              'PR build b98e87ab vs main 4a9c99ba; 1 thread on CPU 8, 8 threads on CPUs 8-15; four rotating batches per '
+              'arm; medians over accepted batches (background CPU <= 2 cores). dbpedia/cohere/laion: quality from the '
+-             'package record, timing from this run. At tier 0.99 "pass/fail" after the held-out counts is the package '
+-             'check (both reach R on >= 99% of held-out queries, loss <= 0.5 pt); the literal levels carry no verdict.', '']
++             'first measurement\'s record, timing from this run. At the 99.5% level "pass/fail" after the held-out '
++             'counts is the first measurement\'s check (both reach R on >= 99% of held-out queries, loss <= 0.5 pt); '
++             'the other levels carry no verdict. Rows saving less than 8% of the distance computations at the 99%, '
++             '95% and 90% levels were not timed and count as not meeting the requirement.', '']
+     out = {}
+     for C, title in TIERS:
+         rows = [x for ds in datasets for x in rows_for(ds, C)]

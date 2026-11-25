@@ -1,0 +1,11 @@
+--- original/freeef.py
++++ more-datasets/scripts/freeef.py
+@@ -26,7 +26,7 @@
+ import config
+ import recalibrate as r
+ 
+-WORK = config.RUNDIR / 'work'
++WORK = config.WORK
+ ORIGINAL = {'dbpedia', 'cohere', 'laion'}
+ TIER_RUN = {0.80: 'lvl', 0.98: 'lvl', 0.99: 'c99', 0.90: 'l95', 0.95: 'c90-c95'}
+ 

@@ -1,0 +1,86 @@
+--- original/prepare.py
++++ more-datasets/scripts/prepare.py
+@@ -3,7 +3,8 @@
+ 
+ usage: prepare.py DATASET [DATASET ...]
+ 
+-Source files (data only, opened with h5py/numpy) are under DOWNLOADS. For each dataset:
++Source files (data only, opened with h5py/numpy) are under the config's [paths] data directory, where download.py
++puts them. For each dataset:
+ - base: the "train" rows as FP32 (Deep: the first 1,000,000 rows; t2i: the 1,000,000 rows of the .fbin file);
+ - queries: the "test" rows (t2i: the .fbin query file). Queries with identical FP32 content (+/- zero canonicalised)
+   keep only their first occurrence. The remaining source rows are permuted with numpy default_rng(SEED); the first
+@@ -13,9 +14,14 @@
+   l2: FP64 squared Euclidean distance (the library's L2 metric is squared L2), float32 stored.
+   The files' own neighbours are ignored.
+ Outputs go to a temporary directory renamed on completion, so a rerun resumes by skipping finished datasets.
++Finally the new manifest is compared with the frozen one of the original run (more-datasets/frozen/inputs/DS/
++manifest.json.xz): the base array, the query rows of each role and their content hashes must be identical; the ground
++truth comes from a full FP64 matrix product, where another BLAS can round the last bit differently and reorder
++near-tied neighbours, so a neighbour or distance mismatch is reported, not fatal.
+ """
+ import hashlib
+ import json
++import lzma
+ import os
+ from pathlib import Path
+ import shutil
+@@ -27,7 +33,6 @@
+ 
+ import config
+ 
+-DOWNLOADS = Path('$DOWNLOADS')  # placeholder: the run's download directory
+ SEED = 20261124
+ DEPTH = 100
+ BATCH = 64
+@@ -55,13 +60,15 @@
+     """Base and query arrays from the registry entry: an ann-benchmarks style HDF5 file ("source", train/test; FP16 is
+     widened value by value) or two .fbin files ("source" base, "queries" query file; 8-byte header). "base_rows"
+     keeps the first rows of the base."""
+-    raw = config.load()['raw_datasets'][ds]
++    cfg = config.load()
++    raw = cfg['raw_datasets'][ds]
++    downloads = cfg['data']
+     src = Path(raw['source'])
+-    src = src if src.is_absolute() else DOWNLOADS / src
++    src = src if src.is_absolute() else downloads / src
+     rows = raw.get('base_rows')
+     if src.suffix == '.fbin':
+         qsrc = Path(raw['queries'])
+-        qsrc = qsrc if qsrc.is_absolute() else DOWNLOADS / qsrc
++        qsrc = qsrc if qsrc.is_absolute() else downloads / qsrc
+         base = np.fromfile(src, dtype='<f4', offset=8).reshape(-1, d['dim'])
+         queries = np.fromfile(qsrc, dtype='<f4', offset=8).reshape(-1, d['dim'])
+         files = [src, qsrc]
+@@ -189,10 +196,31 @@
+     print(ds, 'inputs written', len(rows['calibration']), len(rows['validation']), flush=True)
+ 
+ 
++def compare_frozen(cfg, ds):
++    """Compare the manifest just written with the frozen manifest of the original run."""
++    frozen_path = config.MANIFESTS / ds / 'manifest.json.xz'
++    if not frozen_path.exists():
++        print(ds, 'no frozen manifest to compare with', flush=True)
++        return
++    frozen = json.loads(lzma.decompress(frozen_path.read_bytes()))
++    mine = json.loads((cfg['inputs'] / ds / 'manifest.json').read_text())
++    exact = [('base array', mine['base']['sha256'], frozen['base']['sha256']),
++             ('query rows', mine['queries']['rows'], frozen['queries']['rows']),
++             ('query contents', mine['queries']['content_sha256'], frozen['queries']['content_sha256'])]
++    bad = [name for name, a, b in exact if a != b]
++    if bad:
++        raise SystemExit(f'{ds}: {", ".join(bad)} differ from the original inputs')
++    gt = [f'{role} {name}' for role, arrays in frozen['ground_truth']['arrays'].items() for name in arrays
++          if mine['ground_truth']['arrays'][role][name] != arrays[name]]
++    print(ds, 'base and queries identical to the original inputs; ground truth',
++          'identical' if not gt else 'differs in ' + ', '.join(gt) + ' (BLAS rounding; not fatal)', flush=True)
++
++
+ def main():
+     cfg = config.load()
+     for ds in sys.argv[1:]:
+         prepare(cfg, ds)
++        compare_frozen(cfg, ds)
+ 
+ 
+ if __name__ == '__main__':

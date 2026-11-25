@@ -1,0 +1,54 @@
+--- original/gap.py
++++ more-datasets/scripts/gap.py
+@@ -14,6 +14,8 @@
+   queries, L = 0.99 for tier 0.99, 0.975 for tier 0.95, and the literal level 0.90 / 0.95 / 0.99 for tiers
+   0.80 / 0.90 / 0.98.
+ The candidate set of a tier depends only on k and its own e_C, not on which other tiers or files exist.
++Rows only for tiers whose rule C was evaluated (package record or a quality run here), so that a fixed ef calibrated
++later for another arm (97.5% for the free-ef arm of three datasets) does not add a row or a width to the cache.
+ Fixed efs: work/fixed-ef/fixed-points.json; for dbpedia/cohere/laion tiers 0.90/0.95/0.99 the package's frozen file
+ (rule C from its record). Output: RUN/gap-DS.json.
+ """
+@@ -25,7 +27,7 @@
+ import config
+ import recalibrate as r
+ 
+-WORK = config.RUNDIR / 'work'
++WORK = config.WORK
+ ORIGINAL = {'dbpedia', 'cohere', 'laion'}
+ LEVEL = {0.80: 0.90, 0.90: 0.95, 0.95: 0.975, 0.98: 0.99, 0.99: 0.99}
+ RUN_OF = {0.99: 'c99', 0.98: 'lvl', 0.80: 'lvl', 0.90: 'l95', 0.95: 'c90-c95'}
+@@ -52,14 +54,23 @@
+     return r.read(path).get(r.label(k, R, C), {}).get('rule_c') if path.exists() else None
+ 
+ 
++def evaluated(ds, k, C):
++    if ds in ORIGINAL and C in (0.90, 0.95, 0.99):
++        return True
++    return C in RUN_OF and (WORK / RUN_OF[C] / 'quality' / 'pr' / ds / f'validation-result-k{k}.json').exists()
++
++
+ def main():
+     lib = r.CFG['quality_library']
+     for ds in sys.argv[1:]:
+-        truth = r.Truth(r.DATASETS[ds]['validation'], r.DATASETS[ds]['metric'])
++        truth = None  # loaded only when a width is not in the cache yet (a cached run needs no inputs)
+         points = fixed_points(ds)
+         out = {}
+         for k in r.KS:
+-            mine = {(R, C): ef for (kk, R, C), ef in points.items() if kk == k and ef is not None}
++            # Only calibration levels whose rule C was evaluated (the package record or a quality run of this
++            # measurement): a fixed ef calibrated for another arm alone (97.5% of three new datasets, calibrated for the
++            # free-ef arm after this script ran) gets no row. A level's row depends only on k and its own fixed ef.
++            mine = {(R, C): ef for (kk, R, C), ef in points.items() if kk == k and ef is not None and evaluated(ds, k, C)}
+             if not mine:
+                 continue
+             top = max(mine.values())
+@@ -73,6 +84,7 @@
+                 cache = {e: (data[f'ef{e}/recall'], data[f'ef{e}/dist']) for e in efs}
+             todo = [e for e in grid if e not in cache]
+             if todo:
++                truth = truth or r.Truth(r.DATASETS[ds]['validation'], r.DATASETS[ds]['metric'])
+                 n = 0
+                 while (r.qdir(lib, ds) / 'validation' / f'k{k}-gap-{n:03d}').exists():
+                     n += 1

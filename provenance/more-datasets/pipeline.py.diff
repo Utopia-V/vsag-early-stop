@@ -1,0 +1,67 @@
+--- original/pipeline.py
++++ more-datasets/scripts/pipeline.py
+@@ -2,18 +2,29 @@
+ """Run one stage of one dataset; every step is skipped when its output exists, so a rerun resumes.
+ 
+ usage: pipeline.py STAGE DS
+-  c99-quality   fixed ef at C=0.99 (calibrate_ef.py, bisection), then recalibrate.py alpha, validate, validate-cm,
+-                default-check, report in work/c99 (tiers 0.99)
+-  c99-timing    recalibrate.py timing in work/c99 (waits until the 1-minute load is below max_load, then the
+-                package's own check applies)
+-  mr-quality    meanrecall.py fixed, alpha, validate in work/mean-recall
+-  mr-timing     meanrecall.py timing
+-  low-quality   calibrate_ef.py with all tiers (reuses every measured ef), then alpha, validate, validate-cm, report in
+-                work/c90-c95 (tiers 0.90, 0.95)
+-  low-timing    recalibrate.py timing in work/c90-c95
+-  orig-timing   orig_timing.py (original datasets: rule C and C+m alphas vs fixed) in work/orig
+-  gap           gap.py (fixed ef vs per-query ideal ef, held-out queries, C=0.99) in work/gap
+-A step interrupted half-way leaves a search folder behind; it is moved to work/aborted/ before the step is redone.
++
++Tier numbers are the scripts' internal names of the calibration levels: tier 0.99 = fixed ef calibrated at 99.5%
++(check-set gate 99%, as in the first measurement), 0.98 = calibrated at 99%, 0.90 = calibrated at 95%, 0.80 =
++calibrated at 90%. Run directories are under the config's [paths] work.
++  c99-quality   fixed ef at tier 0.99 (calibrate_ef.py, bisection), then recalibrate.py alpha, validate, validate-cm,
++                validate-m10, default-check, report in c99/
++  lvl-quality   fixed ef at tiers 0.80 and 0.98 (bisection), then alpha, validate, report in lvl/ (rule C only)
++  l95-quality   fixed ef at tier 0.90 (grid and refinement as the first measurement's 0.95 tier), then alpha,
++                validate, report in l95/ (rule C only)
++  c99-timing    recalibrate.py timing in c99/: ref, rule C+m, rule C, C+m with m = 0.10, off, default
++  c99r-timing   lvl_timing.py at tier 0.99: rule C against the reference library at every point with a rule C alpha
++  lvl99-timing, lvl90-timing, l95-timing
++                lvl_timing.py at tiers 0.98, 0.80, 0.90: rule C against the reference library at the points where
++                rule C saves at least 8% of the distance computations on the held-out queries
++  orig-timing   orig_timing.py: the three original datasets, tier 0.99, rule C and September alphas from the first
++                measurement's record, timed with this measurement's libraries (orig/)
++  o95-timing    orig_timing.py at tier 0.90 of the original datasets (points saving at least 8%)
++  gap           gap.py: fixed ef against the per-query ideal width, held-out queries, every tier (gap/)
++  mr-quality, mr-timing      meanrecall.py: the mean-recall arm (mean-recall/)
++  free-quality, free-timing  freeef.py / freeef_timing.py: early stop choosing its own ef (freeef/)
++  low-quality, low-timing    tiers 0.90/0.95 with rule C+m in c90-c95/ (defined, not run in this measurement)
++Timing stages wait until the 1-minute load average is below 2, then recalibrate.timing applies its own check.
++A step interrupted half-way leaves a search folder behind; it is moved to WORK/aborted/ before the step is redone.
+ """
+ import os
+ from pathlib import Path
+@@ -22,16 +33,17 @@
+ import sys
+ import time
+ 
+-RUNDIR = Path(__file__).resolve().parent.parent
+-PY = str(RUNDIR.parent.parent / '.venv' / 'bin' / 'python')
+-S = RUNDIR / 'scripts'
+-WORK = RUNDIR / 'work'
++import config
++
++PY = sys.executable
++S = config.HERE / 'scripts'
++WORK = config.WORK
+ MAX_LOAD = 2.0
+ 
+ 
+ def run(env, *args):
+     print('+', ' '.join(f'{k}={v}' for k, v in env.items()), *args, flush=True)
+-    subprocess.run([PY, *map(str, args)], env=dict(os.environ, **env), check=True, cwd=RUNDIR)
++    subprocess.run([PY, *map(str, args)], env=dict(os.environ, **env), check=True, cwd=config.HERE)
+ 
+ 
+ def clear(*paths):

@@ -1,0 +1,21 @@
+--- original/recalibrate.py
++++ more-datasets/scripts/recalibrate.py
+@@ -5,12 +5,16 @@
+ C = 0.90 / 0.95 / 0.99 with the rule approved on 2026-10-22, then checks every candidate configuration on the held-out
+ queries and, for DBpedia, on 2048 fresh queries (used once before, only at k100/R95).
+ 
+-Copy for runs/early-stop-more-datasets-20261124, generalised from repro-package/scripts/recalibrate.py: datasets come
++Ten-dataset copy (more-datasets/scripts/; provenance/more-datasets/recalibrate.py.diff lists the changes against the copy
++the run used), generalised from scripts/recalibrate.py: datasets come
+ from the registry in config.toml (dimension, metric); recall uses the library's squared L2 for l2 datasets and angular
+ distance for cosine ones; RECAL_TIERS restricts the coverage tiers of one run directory (RECAL_RUN); quality processes
+ take CPUs from RECAL_CPUS / config; default-check and timing take dataset names; timing writes one directory per
+ dataset; the Markdown report of the original is replaced by scripts/tables.py. Every selection and verdict rule below
+-is unchanged.
++is unchanged. Tier numbers are internal names: tier 0.99 calibrates the fixed ef at 99.5% (C_cal) and checks held-out
++coverage against 0.99; tiers 0.98 / 0.90 / 0.80 calibrate at 99% / 95% / 90%, and their held-out "quality_pass" and
++"status" fields compare against the tier number itself (0.98 / 0.90 / 0.80), not a calibration level: no table uses
++them (headline.py prints counts without a verdict at these levels).
+ 
+ Reproduction-package version: the script that produced the delivered quality and timing numbers, with the paths of
+ the original machine replaced by config.toml (scripts/config.py). The phases that installed libraries into the

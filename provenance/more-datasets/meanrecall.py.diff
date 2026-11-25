@@ -1,0 +1,11 @@
+--- original/meanrecall.py
++++ more-datasets/scripts/meanrecall.py
+@@ -98,7 +98,7 @@
+     for k in r.KS:
+         measure = Measure(ds, k, lib, truth)
+         # Measurements of the coverage calibration on the same queries and library (recall and work of fixed search).
+-        seed = r.config.RUNDIR / 'work' / 'fixed-ef' / 'quality' / lib / ds / 'calibration'
++        seed = r.config.WORK / 'fixed-ef' / 'quality' / lib / ds / 'calibration'
+         for folder in sorted(seed.glob(f'k{k}-ef-*')):
+             for path in sorted((folder / 'out').glob('ef*-fixed.bin')):
+                 ef = int(path.stem.split('-')[0][2:])

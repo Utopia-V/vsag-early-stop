@@ -1,0 +1,28 @@
+--- original/orig_timing.py
++++ more-datasets/scripts/orig_timing.py
+@@ -3,9 +3,11 @@
+ 
+ usage: RECAL_RUN=work/orig orig_timing.py DS [--force]
+ 
+-Points: the C = 0.99 points of repro-package results/quality/summary-v4.json where rule C passed the held-out check
+-(12 of 18: DBpedia 4, Cohere 3, LAION 5). Arms: ref = reference build at the fixed ef; rulec = PR build with the rule C
+-alpha; on = PR build with the delivered rule C+m (m = 0.25) alpha at the same points, for a same-session comparison.
++Points: at tier 0.99 (calibrated at 99.5%) every point of results/quality/summary-v4.json with a held-out rule C
++result (all 18, LAION k10 R0.80 included although rule C fails its loss check there); at tier 0.90 (ORIG_TIER=0.90,
++calibrated at 95%) the points where rule C saves at least 8% of the distance computations on the held-out queries.
++Arms: ref = reference build at the fixed ef; rulec = PR build with the rule C alpha; sept = PR build with the
++September-freeze alpha (tier 0.99 only).
+ Original indexes and held-out queries (config.toml), held-out quality not rerun. recalibrate.timing does the rest
+ (load check, four rotating batches, 1 and 8 threads, medians).
+ """
+@@ -31,9 +33,7 @@
+         if p['dataset'] != ds or p['C'] != tier:
+             continue
+         c = p['held_out'].get('rule_c')
+-        # C = 0.99: the points where rule C passed (12 of 18). Tier 0.90 (calibration level 0.95): the points where
+-        # rule C saves at least 8% of the distance computations on the held-out queries.
+-        # C = 0.99: every point with a rule C alpha (headline decision 00:30). Tier 0.90: points saving >= 8%.
++        # Tier 0.99: every point with a rule C alpha. Tier 0.90 (calibrated at 95%): points saving >= 8%.
+         if not c or (tier != 0.99 and c['saving_pct'] < 8.0):
+             continue
+         arms = plan.setdefault((ds, p['k']), {'ref': {}, 'rulec': {}} | ({'sept': {}} if tier == 0.99 else {}))

@@ -1,0 +1,37 @@
+--- original/calibrate_ef.py
++++ more-datasets/scripts/calibrate_ef.py
+@@ -3,9 +3,12 @@
+ 
+ usage: calibrate_ef.py [--lib ROLE] [dataset ...]
+ 
+-Copy for runs/early-stop-more-datasets-20261124: datasets from the registry, recall by the dataset's metric, no
+-frozen "old" alphas (the new datasets have none). With RECAL_TIERS=0.99 only the C=0.99 bisection runs; a later run
+-with all tiers reuses every measured ef from the on-disk cache. Run with RECAL_RUN=work/fixed-ef.
++Ten-dataset copy: datasets from the registry, recall by the dataset's metric, no frozen "old" alphas (the new
++datasets have none). With RECAL_TIERS=0.99 only the C=0.99 bisection runs; a later run with all tiers reuses every
++measured ef from the on-disk cache. Run with RECAL_RUN=WORK/fixed-ef (WORK = [paths] work of more-datasets/config.toml).
++Tiers 0.80 and 0.98 (calibrated at 90% and 99%) use the bisection of C=0.99; tier 0.90 (95%) uses the grid with
++refinement of the first measurement's C=0.90/0.95 tiers, whose refinement step can exceed 1 (up to 21 here, GloVe), so
++the selected ef is the smallest passing ef tested, not necessarily the smallest passing integer.
+ 
+ Coverage is the fraction of calibration queries whose recall@k reaches R, with the same recall as the alpha phases
+ (recalibrate.Truth). The frozen values came from two procedures, reproduced here as they were run:
+@@ -54,6 +57,8 @@
+                 n += 1
+             modes = {r.alpha_name(e, None): (r.params(e, None), e) for e in todo}
+             rows = r.run_modes(self.ds, 'calibration', self.k, modes, f'k{self.k}-ef-{n:03d}', self.lib)
++            if callable(self.truth):  # load the ground truth only when a search has to be scored
++                self.truth = self.truth()
+             for e in todo:
+                 self.cache[e] = r.summarize(self.truth, self.k, rows[r.alpha_name(e, None)])[0]
+             r.save(self.path, {str(e): v.tolist() for e, v in sorted(self.cache.items())})
+@@ -144,7 +149,8 @@
+     records = {(p['dataset'], p['k'], round(p['R'], 2), p['C']): p for p in r.read(records_path)['points']} \
+         if records_path.exists() else {}
+     for ds in datasets:
+-        truth = r.Truth(r.DATASETS[ds]['calibration'], r.DATASETS[ds]['metric'])
++        def truth(ds=ds):
++            return r.Truth(r.DATASETS[ds]['calibration'], r.DATASETS[ds]['metric'])
+         for k in r.KS:
+             measure = Measure(ds, k, lib, truth)
+             # C = 0.99 is needed for itself and for the grid cap of 0.90/0.95; a run with only tiers 0.80/0.98 skips it.

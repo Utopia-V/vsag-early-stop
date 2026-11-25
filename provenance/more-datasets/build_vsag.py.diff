@@ -1,0 +1,79 @@
+--- scripts/build_vsag.py
++++ more-datasets/scripts/build_vsag.py
+@@ -1,17 +1,20 @@
+ #!/usr/bin/env python3
+-"""Check out VSAG at the PR head and at its upstream base, build both in Release, then build the helper programs.
++"""Check out VSAG at the PR head b98e87ab and at its upstream base 4a9c99ba, build both in Release, then the helpers.
+ 
+-usage: build_vsag.py [--roles pr upstream] [--jobs N] [--helpers-only]
++usage: build_vsag.py [--roles pr ref] [--jobs N] [--helpers-only]
+ 
+-For every library role in config.toml ([libraries.ROLE], default pr and upstream):
+-1. a detached git worktree of https://github.com/antgroup/vsag at the role's commit (work/builds/ROLE/src);
+-   if GitHub no longer serves the PR commit, the PR tree is rebuilt from vsag-patches/ on top of the upstream base
+-   and checked against the PR head's tree hash;
+-2. a Release build of the targets vsag and hdf5 with the CMake options of the original builds (work/builds/ROLE/
+-   build-release; the bundled OpenBLAS alone takes about 20 minutes);
+-3. the helpers in native/, compiled against that build (work/builds/ROLE/helpers): multi_signature, timing and
+-   build_index for every role, native_recall.so for the role used by the quality phases.
+-build.json next to the helpers records the commands and the SHA256 of the library and of each helper.
++The ten-dataset counterpart of scripts/build_vsag.py; only the commits, the library file name (libvsag.so.1.1.0) and
++the recall helper differ. For every library role in more-datasets/config.toml ([libraries.ROLE], default pr and ref):
++1. a detached git worktree of https://github.com/antgroup/vsag at the role's commit (BUILDS/ROLE/src); if GitHub no
++   longer serves the PR commit, the PR tree is rebuilt from vsag-patches/pr3149-b98e87ab.diff on top of the upstream
++   base and checked against the PR head's tree hash;
++2. a Release build of the targets vsag and hdf5 with the CMake options of the original builds (BUILDS/ROLE/
++   build-release);
++3. the helpers, compiled against that build (BUILDS/ROLE/helpers): native/multi_signature.cpp, native/timing.cpp and
++   native/build_index.cpp of the package for every role, and more-datasets/native/native_recall.cpp (the package's
++   angular_distances plus l2sqr_distances for the l2 datasets) for the role used by the quality phases.
++build.json next to the helpers records the commands and the SHA256 of the library and of each helper (the original
++values are in SHA256SUMS under original/libraries/pr-b98e87ab and ref-4a9c99ba).
+ --helpers-only skips steps 1-2 and uses the source/build trees configured in config.toml.
+ """
+ import argparse
+@@ -26,15 +29,17 @@
+ 
+ URL = 'https://github.com/antgroup/vsag.git'
+ PR_REF = 'pull/3149/head'
+-PR_HEAD = 'abe7fcf4cb0485d22069559221d19a582ad167e7'
+-PR_TREE = 'f91ed741716cfa57e3ce528630a215b25d05c835'
+-UPSTREAM = '7ea909b3d364296b14be1cf46e72cf4bd98b3613'
+-PATCH = config.PACKAGE / 'vsag-patches' / 'pr3149-abe7fcf4.diff'
++PR_HEAD = 'b98e87abdd192ef5b3426a1fddc0266fcac73f93'
++PR_TREE = '0538fc5941ae130b608a90f3d9484694532bf3c4'
++UPSTREAM = '4a9c99bae6e7abfc98095f3918745b863a179381'
++PATCH = config.PACKAGE / 'vsag-patches' / 'pr3149-b98e87ab.diff'
++LIBRARY = 'libvsag.so.1.1.0'
+ CMAKE_OPTIONS = ['-G', 'Ninja', '-DCMAKE_BUILD_TYPE=Release', '-DENABLE_INTEL_MKL=OFF', '-DVSAG_USE_SYSTEM_DEPS=AUTO',
+                  '-DENABLE_TESTS=ON', '-DENABLE_PYBINDS=OFF', '-DENABLE_EXAMPLES=OFF', '-DENABLE_LIBAIO=OFF',
+                  '-DENABLE_TOOLS=ON', '-DENABLE_CCACHE=OFF',
+                  '-DCMAKE_CXX_FLAGS=-Wno-error=stringop-overflow -Wno-error=stringop-overread']
+ NATIVE = config.PACKAGE / 'native'
++RECALL = config.HERE / 'native' / 'native_recall.cpp'
+ 
+ 
+ def run(command, **kwargs):
+@@ -107,7 +112,7 @@
+     out.mkdir(parents=True, exist_ok=True)
+     hdf5 = tree / 'hdf5' / 'install'
+     record = dict(role=role, commit=lib_cfg['commit'], source=str(source), build=str(tree),
+-                  library=dict(path=str(lib / 'libvsag.so.1.0.0'), sha256=digest(lib / 'libvsag.so.1.0.0')),
++                  library=dict(path=str(lib / LIBRARY), sha256=digest(lib / LIBRARY)),
+                   helpers={}, built_at_utc=datetime.now(timezone.utc).isoformat())
+     for name in ['multi_signature', 'timing', 'build_index']:
+         command = ['c++', '-O2', '-std=c++17', '-fopenmp', NATIVE / f'{name}.cpp', f'-I{source / "include"}',
+@@ -116,10 +121,10 @@
+         run(command)
+         record['helpers'][name] = dict(command=[str(c) for c in command], sha256=digest(out / name))
+     if with_recall:
+-        # The recall check reuses the library's own AVX-512 inner product, so recall is computed with the same
+-        # float arithmetic as the search (as VSAG's eval RecallMonitor does).
++        # The recall check reuses the library's own AVX-512 kernels (inner product for cosine, squared L2 for l2), so
++        # recall is computed with the same float arithmetic as the search.
+         command = ['c++', '-shared', '-fPIC', '-std=c++17', '-O3', '-Ofast', '-Wl,-z,defs', f'-I{source / "src"}',
+-                   NATIVE / 'native_recall.cpp', tree / 'src' / 'simd' / 'libsimd.a',
++                   RECALL, tree / 'src' / 'simd' / 'libsimd.a',
+                    tree / '_deps' / 'cpuinfo-build' / 'libcpuinfo.a', '-lpthread', '-o', out / 'native_recall.so']
+         run(command)
+         record['helpers']['native_recall.so'] = dict(command=[str(c) for c in command],

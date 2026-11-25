@@ -1,0 +1,20 @@
+--- original/check.py
++++ more-datasets/scripts/check.py
+@@ -18,7 +18,7 @@
+ import recalibrate as r
+ import timing_clean as tc
+ 
+-WORK = config.RUNDIR / 'work'
++WORK = config.WORK
+ ORIGINAL = ('dbpedia', 'cohere', 'laion')
+ NEW = ['coco-i2i', 'coco-t2i', 'wiki-all', 'sift', 'deep', 'glove', 'gist', 't2i']
+ RUN_OF = {0.99: 'c99', 0.98: 'lvl', 0.80: 'lvl', 0.90: 'l95'}
+@@ -110,7 +110,7 @@
+                     missing.append(dict(dataset=ds, tier=C, k=k, R=R, reason=why))
+     cons = {ds: consistency(ds) for ds in NEW + list(ORIGINAL) if ds in config.load()['datasets']}
+     out = dict(missing_quality_rows=missing, missing_timing=timing_missing, consistency=cons)
+-    (config.RUNDIR / 'tables' / 'check.json').write_text(json.dumps(out, indent=1) + '\n')
++    (config.TABLES / 'check.json').write_text(json.dumps(out, indent=1) + '\n')
+     for m in missing:
+         print('missing', m)
+     for m in timing_missing:

@@ -1,0 +1,85 @@
+{
+  "gist": {
+    "files": [
+      {
+        "file": "gist-960-euclidean.hdf5",
+        "url": "https://ann-benchmarks.com/gist-960-euclidean.hdf5",
+        "bytes": 3844648288,
+        "sha256": "8e95831936bfdbfa0a56086942e2cf98cd703517c67f985914183eb4cdbf026a"
+      }
+    ]
+  },
+  "sift": {
+    "files": [
+      {
+        "file": "sift-128-euclidean.hdf5",
+        "url": "https://ann-benchmarks.com/sift-128-euclidean.hdf5",
+        "bytes": 525128288,
+        "sha256": "dd6f0a6ed6b7ebb8934680f861a33ed01ff33991eaee4fd60914d854a0ca5984"
+      }
+    ]
+  },
+  "glove": {
+    "files": [
+      {
+        "file": "glove-100-angular.hdf5",
+        "url": "https://ann-benchmarks.com/glove-100-angular.hdf5",
+        "bytes": 485413888,
+        "sha256": "544af1d5e84e112cd4749571dcfd8ca109818a572f850af75a3a09e093a953c4"
+      }
+    ]
+  },
+  "deep": {
+    "files": [
+      {
+        "file": "deep-image-96-angular.hdf5",
+        "url": "https://ann-benchmarks.com/deep-image-96-angular.hdf5",
+        "bytes": 3848008288,
+        "sha256": "a0a44dfe80c58e63860862eeea2d34e62cff958dc3aec14fd65263d1d3c751f8"
+      }
+    ]
+  },
+  "coco-i2i": {
+    "files": [
+      {
+        "file": "coco-i2i-512-angular.hdf5",
+        "url": "https://github.com/fabiocarrara/str-encoders/releases/download/v0.1.3/coco-i2i-512-angular.hdf5",
+        "bytes": 142254080,
+        "sha256": "fcaf3573d0decd37fa241883843037b503736dde14e99e1f0d9472a765d94e19"
+      }
+    ]
+  },
+  "coco-t2i": {
+    "files": [
+      {
+        "file": "coco-t2i-512-angular.hdf5",
+        "url": "https://github.com/fabiocarrara/str-encoders/releases/download/v0.1.3/coco-t2i-512-angular.hdf5",
+        "bytes": 142254080,
+        "sha256": "009c2089290014ac01e1b28c19d962603a1f3989eb1a2e844a06a5ba8b463d49"
+      }
+    ]
+  },
+  "wiki-all": {
+    "files": [
+      {
+        "file": "wiki_all_1M/base.1M.fbin",
+        "bytes": 3072000008,
+        "sha256": "b1e81f8cdcf940688ad0131948b890c1cc8029cccb1b7fec5cfb57a7091ed382",
+        "archive_member": "./base.1M.fbin"
+      },
+      {
+        "file": "wiki_all_1M/queries.fbin",
+        "bytes": 30720008,
+        "sha256": "57c88c301a6ba032855af3a54bdb847a972004e1ab671ce1bff790ee9c39c855",
+        "archive_member": "./queries.fbin"
+      }
+    ],
+    "archive": {
+      "url": "https://data.rapids.ai/raft/datasets/wiki_all_1M/wiki_all_1M.tar",
+      "file": "wiki_all_1M.tar",
+      "bytes": 3110727680,
+      "sha256": null,
+      "note": "the archive hash was not recorded; its two members used here are checked instead"
+    }
+  }
+}

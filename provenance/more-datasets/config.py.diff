@@ -1,0 +1,106 @@
+--- original/config.py
++++ more-datasets/scripts/config.py
+@@ -1,19 +1,22 @@
+-"""Read config.toml of this run and resolve every path the scripts use.
++"""Read more-datasets/config.toml (or config.example.toml) and resolve every path the ten-dataset scripts use.
+ 
+-Generalised copy of repro-package/scripts/config.py: the datasets come from a registry ([datasets.NAME] in
+-config.toml) with dimension and metric instead of the three hard-wired cosine datasets. Every dataset's inputs live
+-in inputs/NAME/{base,calibration,validation}.hdf5 (scripts/prepare.py), its create parameters in
+-indexes/NAME/create.json and its index in indexes/NAME/hgraph.index (scripts/build_indexes.py).
+-Environment: REPRO_CONFIG selects another config file; RECAL_CPUS (taskset list, e.g. "0-7,16-23") overrides the CPUs
+-of the quality processes for one invocation; RECAL_TIERS (e.g. "0.99" or "0.90,0.95") restricts the coverage tiers.
++Generalised copy of scripts/config.py: the datasets come from a registry ([datasets.NAME] in the config file) with
++dimension and metric instead of the three hard-wired cosine datasets. A new dataset's inputs live in
++INPUTS/NAME/{base,calibration,validation}.hdf5 (prepare.py), its create parameters in INDEXES/NAME/create.json and its
++index in INDEXES/NAME/hgraph.index (build_indexes.py); the three original datasets point at the inputs and indexes of
++the first measurement. Relative paths in the config file are taken relative to the directory of that file.
++Environment: REPRO_CONFIG selects another config file; RECAL_RUN selects the run directory of one stage (as in
++scripts/recalibrate.py); RECAL_CPUS (taskset list, e.g. "0-7,16-23") overrides the CPUs of the quality processes for
++one invocation; RECAL_TIERS (e.g. "0.99" or "0.80,0.98") restricts the coverage tiers.
+ """
+ import os
+ from pathlib import Path
+ import tomllib
+ 
+-RUNDIR = Path(__file__).resolve().parent.parent
+-PACKAGE = Path('$VSAG_ROOT/repro-package')
+-FROZEN = PACKAGE / 'frozen'
++HERE = Path(__file__).resolve().parent.parent      # more-datasets/
++PACKAGE = HERE.parent                               # the package root
++FROZEN = PACKAGE / 'frozen'                         # frozen files of the first measurement (three original datasets)
++MANIFESTS = HERE / 'frozen' / 'inputs'              # input manifests of the seven new datasets (NAME/manifest.json.xz)
+ 
+ 
+ def cpu_list(text):
+@@ -27,8 +30,17 @@
+     return out
+ 
+ 
++def config_path(path=None):
++    path = path or os.environ.get('REPRO_CONFIG')
++    if path is None:
++        path = HERE / 'config.toml'
++        if not path.exists():
++            path = HERE / 'config.example.toml'
++    return Path(path).resolve()
++
++
+ def load(path=None):
+-    path = Path(path or os.environ.get('REPRO_CONFIG') or RUNDIR / 'config.toml').resolve()
++    path = config_path(path)
+     raw = tomllib.loads(path.read_text())
+     base = path.parent
+ 
+@@ -38,8 +50,13 @@
+ 
+     paths = raw.get('paths', {})
+     cfg = dict(file=path)
+-    for name, default in [('inputs', 'inputs'), ('indexes', 'indexes'), ('run', 'work/c99'), ('helpers', 'helpers')]:
++    work = resolve(paths.get('work', '../work/more-datasets'))
++    cfg['work'] = work
++    for name, default in [('data', '../work/data'), ('inputs', '../work/inputs'), ('indexes', '../work/indexes'),
++                          ('builds', '../work/builds/more-datasets')]:
+         cfg[name] = resolve(paths.get(name, default))
++    cfg['tables'] = resolve(paths['tables']) if 'tables' in paths else work / 'tables'
++    cfg['run'] = resolve(paths['run']) if 'run' in paths else work / 'c99'
+ 
+     quality = raw.get('quality', {})
+     datasets = {}
+@@ -58,18 +75,22 @@
+     for role, value in raw.get('libraries', {}).items():
+         if not isinstance(value, dict):
+             continue
+-        libraries[role] = dict(commit=value.get('commit'), source=resolve(value['source']),
+-                               build=resolve(value['build']), lib=resolve(value['build']) / 'src',
+-                               helpers=cfg['helpers'] / role)
++        build = cfg['builds'] / role
++        libraries[role] = dict(commit=value.get('commit'),
++                               source=resolve(value.get('source', build / 'src')),
++                               build=resolve(value.get('build', build / 'build-release')),
++                               helpers=resolve(value.get('helpers', build / 'helpers')))
++        libraries[role]['lib'] = resolve(value.get('lib', libraries[role]['build'] / 'src'))
+     cfg['libraries'] = libraries
+     roles = raw.get('libraries', {})
+     cfg['quality_library'] = roles.get('quality', 'pr')
+     cfg['timing_candidate'] = roles.get('timing_candidate', 'pr')
+     cfg['timing_reference'] = roles.get('timing_reference', 'ref')
+-    cfg['native_recall'] = cfg['helpers'] / cfg['quality_library'] / 'native_recall.so'
++    cfg['helpers'] = {role: lib['helpers'] for role, lib in libraries.items()}
++    cfg['native_recall'] = libraries.get(cfg['quality_library'], {}).get('helpers', cfg['builds']) / 'native_recall.so'
+ 
+     selection = raw.get('selection', {})
+-    cfg['fixed_points'] = resolve(selection.get('fixed_points', 'work/fixed-ef/fixed-points.json'))
++    cfg['fixed_points'] = resolve(selection.get('fixed_points', work / 'fixed-ef' / 'fixed-points.json'))
+     cfg['margins'] = {float(c): float(m) for c, m in
+                       selection.get('margins', {'0.90': 0.05, '0.95': 0.05, '0.99': 0.25}).items()}
+     tiers = os.environ.get('RECAL_TIERS') or selection.get('tiers')
+@@ -87,3 +108,8 @@
+     cfg['build_cpus'] = str(index.get('cpus', '0-7,16-19'))
+     cfg['index_param'] = index.get('param', {})
+     return cfg
++
++
++_CFG = load()
++WORK = _CFG['work']        # run outputs: c99/, lvl/, l95/, fixed-ef/, gap/, orig/, freeef/, mean-recall/
++TABLES = _CFG['tables']    # headline.md/json, per-dataset tables, points.json, check.json
