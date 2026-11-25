@@ -1,0 +1,82 @@
+{
+ "missing_quality_rows": [
+  {
+   "dataset": "glove",
+   "tier": 0.99,
+   "k": 10,
+   "R": 0.95,
+   "reason": "fixed search reaches C_cal at no tried ef <= 8192 on the calibration queries"
+  },
+  {
+   "dataset": "glove",
+   "tier": 0.99,
+   "k": 100,
+   "R": 0.95,
+   "reason": "fixed search reaches C_cal at no tried ef <= 8192 on the calibration queries"
+  },
+  {
+   "dataset": "glove",
+   "tier": 0.98,
+   "k": 10,
+   "R": 0.95,
+   "reason": "fixed search reaches C_cal at no tried ef <= 8192 on the calibration queries"
+  },
+  {
+   "dataset": "gist",
+   "tier": 0.99,
+   "k": 10,
+   "R": 0.95,
+   "reason": "fixed search reaches C_cal at no tried ef <= 8192 on the calibration queries"
+  },
+  {
+   "dataset": "gist",
+   "tier": 0.98,
+   "k": 10,
+   "R": 0.95,
+   "reason": "fixed search reaches C_cal at no tried ef <= 8192 on the calibration queries"
+  }
+ ],
+ "missing_timing": [],
+ "consistency": {
+  "coco-i2i": {
+   "compared": 40,
+   "mismatches": []
+  },
+  "coco-t2i": {
+   "compared": 48,
+   "mismatches": []
+  },
+  "wiki-all": {
+   "compared": 48,
+   "mismatches": []
+  },
+  "sift": {
+   "compared": 48,
+   "mismatches": []
+  },
+  "deep": {
+   "compared": 48,
+   "mismatches": []
+  },
+  "glove": {
+   "compared": 21,
+   "mismatches": []
+  },
+  "gist": {
+   "compared": 44,
+   "mismatches": []
+  },
+  "dbpedia": {
+   "compared": 24,
+   "mismatches": []
+  },
+  "cohere": {
+   "compared": 24,
+   "mismatches": []
+  },
+  "laion": {
+   "compared": 24,
+   "mismatches": []
+  }
+ }
+}
